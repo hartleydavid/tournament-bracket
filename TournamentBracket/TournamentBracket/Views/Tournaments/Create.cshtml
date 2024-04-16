@@ -23,22 +23,15 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreationDate" class="control-label"></label>
-                <input asp-for="CreationDate" class="form-control" />
-                <span asp-validation-for="CreationDate" class="text-danger"></span>
+                <label asp-for="TournamentDate" class="control-label">Tournament Date</label>
+                <input asp-for="TournamentDate" class="form-control" />
+                <span asp-validation-for="TournamentDate" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IncludeLosersBracket" /> @Html.DisplayNameFor(model => model.IncludeLosersBracket)
+                    <input class="form-check-input" asp-for="IncludeLosersBracket" /> Include Losers Bracket
                 </label>
             </div>
-            <!--<div class="form-group">
-                <label asp-for="Participants" class="control-label"></label>
-                <<input asp-for="Participants" class="form-control" />
-                <span asp-validation-for="Participants" class="text-danger"></span>
-            </div>-->
-
-
 
             <div id="participantsContainer">
                 <label>Participants:</label>

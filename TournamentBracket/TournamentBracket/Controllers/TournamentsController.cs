@@ -33,7 +33,9 @@ namespace TournamentBracket.Controllers
                 return NotFound();
             }
 
+            //Inlcude the participants in the tournaments
             var tournament = await _context.TournamentBrackets
+                .Include(t => t.Participants)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tournament == null)
             {
@@ -54,7 +56,7 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate,IncludeLosersBracket")] Tournament tournament,
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate,TournamentDate")] Tournament tournament,
             List<string> ParticipantNames, List<IFormFile> ParticipantImages)
         {
             if (ModelState.IsValid)
@@ -64,21 +66,24 @@ namespace TournamentBracket.Controllers
                 _context.Add(tournament);
                 await _context.SaveChangesAsync();
 
-                //Add each of the participants to the 
+                //Add each of the participants to the participant table
                 for (int i = 0; i < ParticipantNames.Count; i++)
                 {
+                    //Create a new participant object
                     var newParticipant = new Participant
                     {
                         TournamentId = tournament.Id,
                         Name = ParticipantNames[i],
+                        //Add the Image handling
                         ImageFileName = "TempName.png"//ParticipantImages[i].FileName
                     };
-                    
-                    //tournament.Participants[i].TournamentId = tournament.Id;
-                    //Add the Image handling
+
+                    //Add to the table
                     _context.Participants.Add(newParticipant);
 
                 }
+
+                //Remove previous save and just have this one?
                 await _context.SaveChangesAsync();
 
 
@@ -86,14 +91,6 @@ namespace TournamentBracket.Controllers
             }
             return View(tournament);
         }
-
-        /*[HttpPost]
-        public IActionResult AddParticipants(List<string> currentParticipants, Tournament tournament)
-        {
-
-
-            return View(tournament);
-        }*/
 
         // GET: Tournaments/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -116,7 +113,7 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreationDate,IncludeLosersBracket")] Tournament tournament)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,TournamentDate,IncludeLosersBracket")] Tournament tournament)
         {
             if (id != tournament.Id)
             {

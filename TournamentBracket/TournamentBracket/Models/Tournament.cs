@@ -2,15 +2,21 @@
 {
     public class Tournament
     {
-
+        //Primary Key
         public int Id { get; set; }
+
+        //Tournament Name
         public required string Name { get; set; }
+        //Description of Tournament
         public required string Description { get; set; }
-        public DateTime CreationDate { get; set; }
+        
+        //The date that the tournament will be
+        public DateTime TournamentDate { get; set; }
 
         public bool IncludeLosersBracket { get; set; }
 
-        //public required List<Participant> Participants { get; set; }
+        //Navigation Property to represent the collection of participants in the tournament
+        public ICollection<Participant> Participants { get; set; }
 
     }
 }
