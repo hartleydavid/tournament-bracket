@@ -56,7 +56,7 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate,TournamentDate")] Tournament tournament,
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,TournamentDate,BracketOptions")] Tournament tournament,
             List<string> ParticipantNames, List<IFormFile> ParticipantImages)
         {
             if (ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,TournamentDate,IncludeLosersBracket")] Tournament tournament)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,TournamentDate,BracketOptions")] Tournament tournament)
         {
             if (id != tournament.Id)
             {

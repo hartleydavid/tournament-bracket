@@ -1,4 +1,6 @@
-﻿namespace TournamentBracket.Models
+﻿using TournamentBracket.Enums;
+
+namespace TournamentBracket.Models
 {
     public class Tournament
     {
@@ -13,10 +15,15 @@
         //The date that the tournament will be
         public DateTime TournamentDate { get; set; }
 
-        public bool IncludeLosersBracket { get; set; }
+        //public bool IncludeLosersBracket { get; set; }
+
+        public BracketOptions BracketOptions {  get; set; } 
 
         //Navigation Property to represent the collection of participants in the tournament
-        public ICollection<Participant> Participants { get; set; }
+        public ICollection<Participant> Participants { get; set; } = new List<Participant>();
+
+        //public ICollection<Match> Matches{ get; set; } = new List<Match>();
+
 
     }
 }
