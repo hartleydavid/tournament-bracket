@@ -2,11 +2,18 @@
 {
     public class Participant
     {
-        //public int Id { get; set; }
-        //public int MatchId { get; set; }
-        public string Name { get; set; }
+        //Primary Key
+        public int Id { get; set; }
 
-        //Image uploaded by user
-        //Team strucuture?
+        //Foreign Key properties to represent the tournament that the participant is in
+        public int TournamentId { get; set; }
+        public Tournament Tournament { get; set; }
+
+        //Participant Properties
+        public string Name { get; set; }
+        
+        //Have Additional Image properties?
+        public string ImageFileName { get; set; }
+
     }
 }
