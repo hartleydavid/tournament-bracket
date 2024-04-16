@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -37,13 +37,20 @@
                 <<input asp-for="Participants" class="form-control" />
                 <span asp-validation-for="Participants" class="text-danger"></span>
             </div>-->
+
+
+
             <div id="participantsContainer">
                 <label>Participants:</label>
                 <div class="participant">
-                    <input type="text" asp-for="@Model.Participants[0]" name="Participants[0]" class="form-control" />
+                    <input type="text" name="ParticipantNames[0]" class="form-control" placeholder="Participant Name" />
+                    <input type="file" name="ParticipantImages[0]" class="form-control-file" />
                 </div>
             </div>
+
+            <!--Button to add more participants-->
             <button type="button" id="addParticipantBtn" class="btn btn-primary">Add Participant</button>
+            <!-- Bitton to submit the form-->
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -62,7 +69,8 @@
                 var index = $("#participantsContainer .participant").length;
                 var newParticipantHtml = `
                             <div class="participant">
-                                <input type="text" name="Participants[${index}]" class="form-control" />
+                                        <input type="text" name="ParticipantNames[${index}]" class="form-control" />
+                                <input type="file" name="ParticipantImages[${index}]" class="form-control-file" />
                             </div>
                         `;
                 $("#participantsContainer").append(newParticipantHtml);

@@ -35,22 +35,8 @@
             @Html.DisplayFor(model => model.IncludeLosersBracket)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Participants)
+            Participants
         </dt>
-        <dd class = "col-sm-10">
-            @if (Model.Participants != null && Model.Participants.Any())
-            {
-                    @foreach(var participant in Model.Participants)
-                    {
-                        <div class="participant">
-                            @participant
-                        </div>
-
-                    }
-                
-            }    
-           
-        </dd>
     </dl>
 </div>
 <div>

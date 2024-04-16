@@ -8,6 +8,9 @@ namespace TournamentBracket.Data
         public DbSet<TournamentBracket.Models.Tournament> TournamentBrackets { get; set; }
         public DbSet<TournamentBracket.Models.Match> Matches { get; set; }
 
+        public DbSet<TournamentBracket.Models.Participant> Participants { get; set; }
+
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

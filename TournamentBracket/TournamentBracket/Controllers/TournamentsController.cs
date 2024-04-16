@@ -54,12 +54,34 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate,IncludeLosersBracket,Participants")] Tournament tournament)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreationDate,IncludeLosersBracket")] Tournament tournament,
+            List<string> ParticipantNames, List<IFormFile> ParticipantImages)
         {
             if (ModelState.IsValid)
             {
+
+                //Add the tournament to the db
                 _context.Add(tournament);
                 await _context.SaveChangesAsync();
+
+                //Add each of the participants to the 
+                for (int i = 0; i < ParticipantNames.Count; i++)
+                {
+                    var newParticipant = new Participant
+                    {
+                        TournamentId = tournament.Id,
+                        Name = ParticipantNames[i],
+                        ImageFileName = "TempName.png"//ParticipantImages[i].FileName
+                    };
+                    
+                    //tournament.Participants[i].TournamentId = tournament.Id;
+                    //Add the Image handling
+                    _context.Participants.Add(newParticipant);
+
+                }
+                await _context.SaveChangesAsync();
+
+
                 return RedirectToAction(nameof(Index));
             }
             return View(tournament);
@@ -94,7 +116,7 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreationDate,IncludeLosersBracket,Participants")] Tournament tournament)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreationDate,IncludeLosersBracket")] Tournament tournament)
         {
             if (id != tournament.Id)
             {
