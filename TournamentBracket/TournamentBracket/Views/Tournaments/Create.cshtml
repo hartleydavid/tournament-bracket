@@ -44,13 +44,11 @@
             <!--Participant(s) Creation-->
             <div id="participantsContainer">
                 <label>Participants:</label>
-                <div class="file-upload">
-                    <input type="file" name="postedFile" />
-                </div>
                 
+                <!--Participant Input Form-->
                 <div class="participant">
-                    <input type="text" name="Names[0]" class="form-control" placeholder="Participant Name" />
-                    <input type="file" name="Images" multiple/>
+                    <input type="text" name="Names" class="form-control" placeholder="Participant Name" />
+                    <input type="file" name="Images" accept="image/png, image/jpeg"/>
                 </div>
             </div>
 
@@ -75,13 +73,12 @@
     <script>
         $(document).ready(function () {
             $("#addParticipantBtn").click(function () {
-                var index = $("#participantsContainer .participant").length;
                 var newParticipantHtml = `
-                            <div class="participant">
-                                <input type="text" name="Names[${index}]" class="form-control" />
-                                <input type="file" name="Images" multiple />
-                            </div>
-                        `;
+                    <div class="participant">
+                        <input type="text" name="Names" class="form-control" />
+                        <input type="file" name="Images"  accept="image/png, image/jpeg"/>
+                    </div>
+                 `;
                 $("#participantsContainer").append(newParticipantHtml);
             });
         });

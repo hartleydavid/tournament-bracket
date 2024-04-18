@@ -57,7 +57,7 @@ namespace TournamentBracket.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,TournamentDate,BracketOptions")] Tournament tournament,
-            List<string> Names, List<IFormFile> Images, IFormFile postedFile)
+            List<string> Names, List<IFormFile> Images)
         {
 
             if(Images == null || Images.Count() == 0)
