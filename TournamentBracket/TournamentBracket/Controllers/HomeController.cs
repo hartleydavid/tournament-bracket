@@ -18,6 +18,18 @@ namespace TournamentBracket.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(IFormFile postedFile)
+        {
+            if (postedFile == null || postedFile.Length == 0)
+                return BadRequest("No file selected for upload...");
+
+            string fileName = Path.GetFileName(postedFile.FileName);
+            string contentType = postedFile.ContentType;
+
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

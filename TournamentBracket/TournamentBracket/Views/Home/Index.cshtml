@@ -6,3 +6,14 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<body>
+    <form method="post" enctype="multipart/form-data" asp-controller="Home"
+          asp-action="Index">
+        <span>Select File:</span>
+        <input type="file" name="postedFile" />
+        <input type="submit" value="Upload" />
+        <br />
+        <span>@Html.Raw(ViewBag.Message)</span>
+    </form>
+</body>

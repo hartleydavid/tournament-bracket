@@ -57,8 +57,18 @@ namespace TournamentBracket.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,TournamentDate,BracketOptions")] Tournament tournament,
-            List<string> ParticipantNames, List<IFormFile> ParticipantImages)
+            List<string> Names, List<IFormFile> Images)
         {
+
+            if(Images == null || Images.Count == 0)
+            {
+                //Change the Response
+                //Alert about invalid input and redirect back to creation
+                return BadRequest("No File uploaded");
+            }
+
+
+
             if (ModelState.IsValid)
             {
 
@@ -67,15 +77,17 @@ namespace TournamentBracket.Controllers
                 await _context.SaveChangesAsync();
 
                 //Add each of the participants to the participant table
-                for (int i = 0; i < ParticipantNames.Count; i++)
+                for (int i = 0; i < Names.Count; i++)
                 {
+
                     //Create a new participant object
                     var newParticipant = new Participant
                     {
                         TournamentId = tournament.Id,
-                        Name = ParticipantNames[i],
+                        Name = Names[i],
                         //Add the Image handling
-                        ImageFileName = "TempName.png"//ParticipantImages[i].FileName
+                        //Icon = Images[i]
+                        ImageFileName = Images[i].FileName
                     };
 
                     //Add to the table

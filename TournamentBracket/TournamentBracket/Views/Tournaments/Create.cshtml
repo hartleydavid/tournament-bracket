@@ -10,7 +10,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+        <form method="post" enctype="multipart/form-data" asp-controller="Tournaments" asp-action="Create">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -27,34 +29,39 @@
                 <input asp-for="TournamentDate" class="form-control" />
                 <span asp-validation-for="TournamentDate" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                
+            <!--Options Drop-Down Menu-->
+            <div class="form-group form-check">      
                 <label class="form-check-label">
                     Bracket Options:
                     <select asp-for="BracketOptions" class="form-control">
-                        <option value="None">None</option>
-                        <option value="LosersBracket">Losers Bracket</option>
+                        <option value="SingleElimination">Single Elimination</option>
+                        <option value="DoubleElimination">Double Elimination</option>
                         <option value="ThirdPlaceMatch">Third Place Match</option>
                     </select>
                 </label>
             </div>
 
+            <!--Participant(s) Creation-->
             <div id="participantsContainer">
                 <label>Participants:</label>
+                
+                <!--Participant Input Form-->
                 <div class="participant">
-                    <input type="text" name="ParticipantNames[0]" class="form-control" placeholder="Participant Name" />
-                    <input type="file" name="ParticipantImages[0]" class="form-control-file" />
+                    <input type="text" name="Names" class="form-control" placeholder="Participant Name" />
+                    <input type="file" name="Images" accept="image/png, image/jpeg"/>
                 </div>
             </div>
 
             <!--Button to add more participants-->
             <button type="button" id="addParticipantBtn" class="btn btn-primary">Add Participant</button>
+
             <!-- Bitton to submit the form-->
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <!--<input type="submit" value="Create" class="btn btn-primary" />-->
+                <!-- <button type="submit" class="btn btn-primary">Create</button>-->
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
 </div>
 
@@ -66,13 +73,12 @@
     <script>
         $(document).ready(function () {
             $("#addParticipantBtn").click(function () {
-                var index = $("#participantsContainer .participant").length;
                 var newParticipantHtml = `
-                            <div class="participant">
-                                <input type="text" name="ParticipantNames[${index}]" class="form-control" />
-                                <input type="file" name="ParticipantImages[${index}]" class="form-control-file" />
-                            </div>
-                        `;
+                    <div class="participant">
+                        <input type="text" name="Names" class="form-control" />
+                        <input type="file" name="Images"  accept="image/png, image/jpeg"/>
+                    </div>
+                 `;
                 $("#participantsContainer").append(newParticipantHtml);
             });
         });
