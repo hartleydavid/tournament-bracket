@@ -42,13 +42,13 @@
             </div>
 
             <!--Participant(s) Creation-->
-            <div id="participantsContainer">
+            <div class ="form-group" id="participantsContainer">
                 <label>Participants:</label>
                 
                 <!--Participant Input Form-->
-                <div class="participant">
-                    <input type="text" name="Names" class="form-control" placeholder="Participant Name" />
-                    <input type="file" name="Images" accept="image/png, image/jpeg"/>
+                <div id="participant">
+                    <input type="text" name="Names" class="form-control" placeholder="Participant Name" required/>
+                    <input type="file" name="Images" accept="image/png, image/jpeg" required />
                 </div>
             </div>
 
@@ -75,8 +75,8 @@
             $("#addParticipantBtn").click(function () {
                 var newParticipantHtml = `
                     <div class="participant">
-                        <input type="text" name="Names" class="form-control" />
-                        <input type="file" name="Images"  accept="image/png, image/jpeg"/>
+                                <input type="text" name="Names" class="form-control" required/>
+                                <input type="file" name="Images"  accept="image/png, image/jpeg" required/>
                     </div>
                  `;
                 $("#participantsContainer").append(newParticipantHtml);
