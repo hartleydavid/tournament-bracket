@@ -14,27 +14,48 @@ namespace TournamentBracket.BlobStorage
     {
 
         private readonly string _storageAccount = "tournamentbracketimages";
-        private readonly string _key = new BlobKeyConfig().get_Key();
-        private readonly string _connectionString = "private readonly string";
+        private readonly string _key = new BlobKeyConfig().Get_Key();
+        
+        //Reference to the Blob Container with the image files
         private readonly BlobContainerClient _filesContainter;
 
-        public BlobFileServie()
+        public BlobFileServie(string UserName, string TournamentName, bool isCreating)
         {
             var credential = new StorageSharedKeyCredential(_storageAccount, _key);
             var blobUri = $"https://{_storageAccount}.blob.core.windows.net";
             var blobServiceClient = new BlobServiceClient(new Uri(blobUri), credential);
-            _filesContainter = blobServiceClient.GetBlobContainerClient("participant-images");
+            string containterName = UserName.ToLower() + "-" + TournamentName.ToLower().Replace(' ','-');
+            //Create a blob
+            if ( isCreating )
+            {
+                BlobContainerClient _tempFilesContainter = blobServiceClient.CreateBlobContainer(containterName);
+                //Set the Access type of the blob to be public so images can be displayed
+                _tempFilesContainter.SetAccessPolicy(PublicAccessType.Blob, default, default, default);
+            }
+
+            //Connect to the blob container that the images will be uploaded to
+            _filesContainter = blobServiceClient.GetBlobContainerClient(containterName);
+           
         }
 
+        public string GetBlobName()
+        {
+            return _filesContainter.Name;
+        }
+
+        public string GetStorageAccountName()
+        {
+            return _storageAccount;
+        }
         /**
          * 
          * 
          */
-        public async Task<BlobResponseData> UploadAsync(IFormFile file)
+        public async Task<BlobResponseData> UploadAsync(IFormFile file /*, string TournamentName*/)
         {
             BlobResponseData response = new BlobResponseData();
 
-            BlobClient client = _filesContainter.GetBlobClient(file.Name);
+            BlobClient client = _filesContainter.GetBlobClient(file.FileName);
 
             //Try-Catch for Exception thrown during file upload
             try
@@ -65,20 +86,18 @@ namespace TournamentBracket.BlobStorage
          * 
          * 
          */
-        public async Task<BlobResponseData> DeleteAsync(string blobFilename)
+        public async Task<BlobResponseData> DeleteAsync()
         {
             BlobResponseData response = new BlobResponseData();
 
-            BlobClient file = _filesContainter.GetBlobClient(blobFilename);
-
-            //Try-Catch for deleting file
+            //Try-Catch for deleting blob
             try
             {
-                //Attempt to delete
-                await file.DeleteAsync();
+                //Attempt to delete the blob
+                await _filesContainter.DeleteAsync();
 
                 //If no exception, response data is successful
-                response.Status = $"File {blobFilename} Deleted Successfully";
+                response.Status = $"Blob Deleted Successfully";
                 response.StatusID = 200;
                 response.Error = false;
             }

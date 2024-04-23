@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using TournamentBracket.BlobStorage;
 using TournamentBracket.Data;
 using TournamentBracket.Models;
+using static System.Net.WebRequestMethods;
 
 namespace TournamentBracket.Controllers
 {
@@ -82,9 +84,15 @@ namespace TournamentBracket.Controllers
                 _context.Add(tournament);
                 await _context.SaveChangesAsync();
 
+                //Create a Blob Connection
+                BlobFileServie blobFileServie = new BlobFileServie("TestIdentity", tournament.Name, true);
+
                 //Add each of the participants to the participant table
                 for (int i = 0; i < Names.Count; i++)
                 {
+                    //Upload the image file for this Participant to the Blob Container
+                    await blobFileServie.UploadAsync(Images[i]);
+
 
                     //Create a new participant object
                     var newParticipant = new Participant
@@ -92,8 +100,8 @@ namespace TournamentBracket.Controllers
                         TournamentId = tournament.Id,
                         Name = Names[i],
                         //Add the Image handling
-                        //Icon = Images[i]
-                        ImageURL = Images[i].FileName
+
+                        ImageURL = $"https://{blobFileServie.GetStorageAccountName()}.blob.core.windows.net/{blobFileServie.GetBlobName()}/{Images[i].FileName}"
                     };
 
                     //Add to the table
@@ -187,6 +195,11 @@ namespace TournamentBracket.Controllers
             var tournament = await _context.TournamentBrackets.FindAsync(id);
             if (tournament != null)
             {
+                //Connect to blob storage
+                BlobFileServie blobFileServie = new BlobFileServie("testidentity", tournament.Name, false);
+                //Delete the container for this tournament
+                await blobFileServie.DeleteAsync();
+                //Delete the tournament from the db
                 _context.TournamentBrackets.Remove(tournament);
             }
 
