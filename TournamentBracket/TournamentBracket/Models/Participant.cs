@@ -11,11 +11,8 @@
 
         //Participant Properties
         public string Name { get; set; }
-        
-        //Have Additional Image properties?
-        //public IFormFile Icon { get; set; }
-
-        public string ImageFileName { get; set; }
+       
+        public string ImageURL { get; set; }
 
     }
 }

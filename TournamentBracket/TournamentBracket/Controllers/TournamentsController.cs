@@ -60,6 +60,7 @@ namespace TournamentBracket.Controllers
             List<string> Names, List<IFormFile> Images)
         {
 
+            //Check if any files were uploaded
             if(Images == null || Images.Count == 0)
             {
                 //Change the Response
@@ -67,6 +68,11 @@ namespace TournamentBracket.Controllers
                 return BadRequest("No File uploaded");
             }
 
+            //Check if the number of images and names do not match
+            if( !(Names.Count == Images.Count && Names.Count >= 3))
+            {
+                return BadRequest("Please fill out all fields and require 3 participants");
+            }
 
 
             if (ModelState.IsValid)
@@ -87,7 +93,7 @@ namespace TournamentBracket.Controllers
                         Name = Names[i],
                         //Add the Image handling
                         //Icon = Images[i]
-                        ImageFileName = Images[i].FileName
+                        ImageURL = Images[i].FileName
                     };
 
                     //Add to the table
