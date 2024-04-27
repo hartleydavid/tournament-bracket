@@ -77,10 +77,16 @@
                     <div class="participant">
                                 <input type="text" name="Names" class="form-control" required/>
                                 <input type="file" name="Images"  accept="image/png, image/jpeg" required/>
+                                <button type="button" class="btn btn-danger removeParticipantBtn">Remove</button>
                     </div>
                  `;
                 $("#participantsContainer").append(newParticipantHtml);
             });
+        });
+
+        // Remove participant
+        $("#participantsContainer").on("click", ".removeParticipantBtn", function () {
+            $(this).closest('.participant').remove();
         });
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -28,6 +28,7 @@ namespace TournamentBracket.BlobStorage
             //Create a blob
             if ( isCreating )
             {
+                //Is this necessary having a temp container?
                 BlobContainerClient _tempFilesContainter = blobServiceClient.CreateBlobContainer(containterName);
                 //Set the Access type of the blob to be public so images can be displayed
                 _tempFilesContainter.SetAccessPolicy(PublicAccessType.Blob, default, default, default);
