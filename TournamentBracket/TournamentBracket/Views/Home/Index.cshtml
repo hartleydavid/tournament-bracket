@@ -2,6 +2,35 @@
     ViewData["Title"] = "Home Page";
 }
 
+<script>
+    // Use jQuery.noConflict() to release the '$' variable
+    jQuery.noConflict();
+    // Use jQuery instead of $ to ensure compatibility
+    jQuery(function ($) {
+        $("#draggable").draggable({
+            snap: "#droppable", // Snap to the droppable area
+            snapMode: "inner"   // Snap to the inside of the droppable area
+
+        });
+        $("#droppable").droppable({
+            drop: function (event, ui) {
+                $(this)
+                    .addClass("ui-state-highlight")
+                    .find("p")
+                    .html("Dropped!");
+            }
+        });
+        $("#droppable2").droppable({
+            drop: function (event, ui) {
+                $(this)
+                    .addClass("ui-state-highlight")
+                    .find("p")
+                    .html("Dropped!");
+            }
+        });
+    });
+</script>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -14,5 +43,12 @@
 <div id="droppable" class="ui-widget-header">
     <p>Drop here</p>
 </div>
+
+<br/>
+
+<div id="droppable2" class="ui-widget-header">
+    <p>Or here</p>
+</div>
+
 
 
