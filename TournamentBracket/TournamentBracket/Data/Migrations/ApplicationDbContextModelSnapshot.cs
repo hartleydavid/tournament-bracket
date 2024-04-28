@@ -259,7 +259,7 @@ namespace TournamentBracket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Matches");
+                    b.ToTable("Matches", (string)null);
                 });
 
             modelBuilder.Entity("TournamentBracket.Models.Participant", b =>
@@ -285,7 +285,7 @@ namespace TournamentBracket.Data.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Participants");
+                    b.ToTable("Participants", (string)null);
                 });
 
             modelBuilder.Entity("TournamentBracket.Models.Tournament", b =>
@@ -312,7 +312,7 @@ namespace TournamentBracket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TournamentBrackets");
+                    b.ToTable("TournamentBrackets", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
