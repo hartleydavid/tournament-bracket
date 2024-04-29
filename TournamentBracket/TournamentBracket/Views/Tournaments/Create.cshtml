@@ -27,8 +27,8 @@
                     Bracket Options:
                     <!-- All current options are DoubleElimination, when future implementations are made, change the value back-->
                     <select asp-for="BracketOptions" class="form-control">
-                        <option value="DoubleElimination">Single Elimination (To be implemented)</option>
                         <option value="DoubleElimination">Double Elimination</option>
+                        <option value="DoubleElimination">Single Elimination (To be implemented)</option>
                         <option value="DoubleElimination">Third Place Match (To be implemented)</option>
                     </select>
                 </label>
@@ -40,7 +40,13 @@
                 
                 <!--Participant Input Form-->
                 <div id="participant">
-                    <input type="text" name="Names" class="form-control" placeholder="Participant Name" required/>
+                    <input type="text" name="Names" class="form-control" placeholder="First Participant Name" required/>
+                    <input type="file" name="Images" accept="image/png, image/jpeg" required />
+
+                    <input type="text" name="Names" class="form-control" placeholder="Second Participant Name" required />
+                    <input type="file" name="Images" accept="image/png, image/jpeg" required />
+
+                    <input type="text" name="Names" class="form-control" placeholder="Third Participant Name" required />
                     <input type="file" name="Images" accept="image/png, image/jpeg" required />
                 </div>
             </div>
@@ -48,8 +54,8 @@
             <!--Button to add more participants-->
             <button type="button" id="addParticipantBtn" class="btn btn-primary">Add Participant</button>
 
-            <!-- Bitton to submit the form-->
-            <div class="form-group">
+            <!-- Button to submit the form-->
+            <div class="form-submission">
                 <!-- <button type="submit" class="btn btn-primary">Create</button>-->
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

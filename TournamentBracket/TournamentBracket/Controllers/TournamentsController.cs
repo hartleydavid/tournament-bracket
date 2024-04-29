@@ -86,19 +86,11 @@ namespace TournamentBracket.Controllers
             List<string> Names, List<IFormFile> Images)
         {
 
-     
-            //Check if any files were uploaded
-            if(Images == null || Images.Count == 0)
-            {
-                //Change the Response
-                //Alert about invalid input and redirect back to creation
-                return BadRequest("No File uploaded");
-            }
-
-            //Check if the number of images and names do not match
+            //Check if the number of images and names do not match and meet the minimun requirement
             if( !(Names.Count == Images.Count && Names.Count >= 3))
             {
-                return BadRequest("Please fill out all fields and require 3 participants");
+                return View(tournament);
+                // return RedirectToAction("Create", tournament);//BadRequest("Please fill out all fields and require 3 participants");
             }
             string username = User.Identity.Name;
             //Add the user that created the bracket
