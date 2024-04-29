@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +23,34 @@ namespace TournamentBracket.Controllers
             _context = context;
         }
 
+        private static string FormatUserName(string username)
+        {
+            int atIndex = username.IndexOf("@");
+
+            //If the index was found, return the substring up until that index
+            if (atIndex > 0)
+            {
+                return username[..atIndex];
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Username provided");
+            }
+        }
+
         // GET: Tournaments
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TournamentBrackets.ToListAsync());
+            //Filter the brackets to only include the brackets that the logged in user created
+            var filteredBrackets = _context.TournamentBrackets.Where(x => x.UserCreatedID 
+                                                                        == User.Identity.Name).ToListAsync();
+            return View(await filteredBrackets);
+            //return View(await _context.TournamentBrackets.ToListAsync());
         }
 
         // GET: Tournaments/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +71,7 @@ namespace TournamentBracket.Controllers
         }
 
         // GET: Tournaments/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -58,10 +82,11 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,TournamentDate,BracketOptions")] Tournament tournament,
+        public async Task<IActionResult> Create([Bind("Id,Name,BracketOptions")] Tournament tournament,
             List<string> Names, List<IFormFile> Images)
         {
 
+     
             //Check if any files were uploaded
             if(Images == null || Images.Count == 0)
             {
@@ -75,17 +100,28 @@ namespace TournamentBracket.Controllers
             {
                 return BadRequest("Please fill out all fields and require 3 participants");
             }
-
-
+            string username = User.Identity.Name;
+            //Add the user that created the bracket
+            tournament.UserCreatedID = username;
+            ModelState.Remove("UserCreatedID");
+            //Check if the bracket is a valid state (Checks userCreatedID for null reference)
             if (ModelState.IsValid)
+            //if(TryValidateModel(tournament))
             {
-
                 //Add the tournament to the db
                 _context.Add(tournament);
                 await _context.SaveChangesAsync();
 
                 //Create a Blob Connection
-                BlobFileServie blobFileServie = new BlobFileServie("TestIdentity", tournament.Name, true);
+                BlobFileServie blobFileServie;
+
+                try
+                {
+                    blobFileServie = new(FormatUserName(username), tournament.Name, true);
+                }catch (Exception ex)
+                {
+                    return BadRequest("There has been an error with your account. Please refresh the page.");
+                }
 
                 //Add each of the participants to the participant table
                 for (int i = 0; i < Names.Count; i++)
@@ -139,7 +175,7 @@ namespace TournamentBracket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,TournamentDate,BracketOptions")] Tournament tournament)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BracketOptions")] Tournament tournament)
         {
             if (id != tournament.Id)
             {
@@ -195,8 +231,9 @@ namespace TournamentBracket.Controllers
             var tournament = await _context.TournamentBrackets.FindAsync(id);
             if (tournament != null)
             {
-                //Connect to blob storage
-                BlobFileServie blobFileServie = new BlobFileServie("testidentity", tournament.Name, false);
+               
+                //Connect to blob storage, format the username to cut off the @ tag
+                BlobFileServie blobFileServie = new BlobFileServie(FormatUserName(User.Identity.Name), tournament.Name, false);
                 //Delete the container for this tournament
                 await blobFileServie.DeleteAsync();
                 //Delete the tournament from the db

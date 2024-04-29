@@ -14,29 +14,22 @@
         <form method="post" enctype="multipart/form-data" asp-controller="Tournaments" asp-action="Create">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--Name Field-->
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TournamentDate" class="control-label">Tournament Date</label>
-                <input asp-for="TournamentDate" class="form-control" />
-                <span asp-validation-for="TournamentDate" class="text-danger"></span>
-            </div>
+ 
             <!--Options Drop-Down Menu-->
             <div class="form-group form-check">      
                 <label class="form-check-label">
                     Bracket Options:
+                    <!-- All current options are DoubleElimination, when future implementations are made, change the value back-->
                     <select asp-for="BracketOptions" class="form-control">
-                        <option value="SingleElimination">Single Elimination</option>
+                        <option value="DoubleElimination">Single Elimination (To be implemented)</option>
                         <option value="DoubleElimination">Double Elimination</option>
-                        <option value="ThirdPlaceMatch">Third Place Match</option>
+                        <option value="DoubleElimination">Third Place Match (To be implemented)</option>
                     </select>
                 </label>
             </div>

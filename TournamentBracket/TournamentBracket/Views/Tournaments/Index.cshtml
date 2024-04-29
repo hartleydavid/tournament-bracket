@@ -16,15 +16,11 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                Tournament Date
-            </th>
-            <th>
                 Bracket Options
             </th>
-
+            <th>
+                Number of Participants
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -34,15 +30,11 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.TournamentDate)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.BracketOptions)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Participants.Count)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

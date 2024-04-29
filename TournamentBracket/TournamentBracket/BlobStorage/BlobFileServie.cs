@@ -2,6 +2,8 @@
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Identity.Client;
 
 namespace TournamentBracket.BlobStorage
 {
@@ -19,8 +21,13 @@ namespace TournamentBracket.BlobStorage
         //Reference to the Blob Container with the image files
         private readonly BlobContainerClient _filesContainter;
 
+
+
         public BlobFileServie(string UserName, string TournamentName, bool isCreating)
         {
+            //Check if the username provided is valid (Not null)
+            ArgumentNullException.ThrowIfNull(UserName);
+
             var credential = new StorageSharedKeyCredential(_storageAccount, _key);
             var blobUri = $"https://{_storageAccount}.blob.core.windows.net";
             var blobServiceClient = new BlobServiceClient(new Uri(blobUri), credential);
@@ -38,6 +45,7 @@ namespace TournamentBracket.BlobStorage
             _filesContainter = blobServiceClient.GetBlobContainerClient(containterName);
            
         }
+
 
         public string GetBlobName()
         {
