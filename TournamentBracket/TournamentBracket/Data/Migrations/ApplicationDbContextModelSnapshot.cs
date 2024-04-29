@@ -179,11 +179,6 @@ namespace TournamentBracket.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -259,7 +254,7 @@ namespace TournamentBracket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Matches", (string)null);
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("TournamentBracket.Models.Participant", b =>
@@ -285,7 +280,7 @@ namespace TournamentBracket.Data.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Participants", (string)null);
+                    b.ToTable("Participants");
                 });
 
             modelBuilder.Entity("TournamentBracket.Models.Tournament", b =>
@@ -299,20 +294,17 @@ namespace TournamentBracket.Data.Migrations
                     b.Property<int>("BracketOptions")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TournamentDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("UserCreatedID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TournamentBrackets", (string)null);
+                    b.ToTable("TournamentBrackets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
