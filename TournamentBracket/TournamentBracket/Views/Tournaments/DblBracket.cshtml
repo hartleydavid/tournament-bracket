@@ -1,0 +1,48 @@
+﻿@model TournamentBracket.Models.Tournament
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> @Html.DisplayFor(model => model.Name) </title>
+
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
+
+
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                Participants
+            </dt>
+            <dd class="Participants">
+                <ul>
+                    @foreach (var participant in Model.Participants)
+                    {
+                        <li>
+                            @participant.Name <br />
+                            <img src=@participant.ImageURL alt="Icon" />
+                        </li>
+                    }
+                </ul>
+            </dd>
+        </dl>
+    </div>
+
+</body>
+
+</html>

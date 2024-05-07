@@ -30,7 +30,7 @@ namespace TournamentBracket.Controllers
             //If the index was found, return the substring up until that index
             if (atIndex > 0)
             {
-                return username[..atIndex];
+                return username[..atIndex].Replace('.','-');
             }
             else
             {
@@ -67,7 +67,7 @@ namespace TournamentBracket.Controllers
                 return NotFound();
             }
 
-            return View(tournament);
+            return View("DblBracket", tournament);
         }
 
         // GET: Tournaments/Create
