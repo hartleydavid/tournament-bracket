@@ -1,0 +1,151 @@
+﻿.tournament {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.bracket {
+    padding: 40px;
+    margin: 5px;
+}
+
+.bracket {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: space-around;
+    align-content: center;
+    margin-right: 55px;
+}
+
+.match {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+    margin: 12px 24px 12px 0;
+}
+
+    .match .match-top {
+        border-radius: 2px 2px 0 0;
+    }
+
+    .match .match-bottom {
+        border-radius: 0 0 2px 2px;
+    }
+
+    .match .team {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+        position: relative;
+    }
+
+        .match .team span {
+            padding-left: 8px;
+        }
+
+            .match .team span:last-child {
+                padding-right: 8px;
+            }
+
+        .match .team:first-child {
+            margin-bottom: -1px;
+        }
+
+.match-lines {
+    display: block;
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    margin-top: 0px;
+    right: -1px;
+}
+
+    .match-lines .line {
+        background: red;
+        position: absolute;
+    }
+
+        .match-lines .line.one {
+            height: 1px;
+            width: 40px;
+        }
+
+        .match-lines .line.two {
+            height: 65px;
+            width: 1px;
+            left: 40px;
+        }
+
+    .match-lines.alt {
+        left: -38px;
+    }
+
+.match:nth-child(even) .match-lines .line.two {
+    transform: translate(0, -100%);
+}
+
+.column:first-child .match-lines.alt {
+    display: none;
+}
+
+.column:last-child .match-lines {
+    display: none;
+}
+
+    .column:last-child .match-lines.alt {
+        display: block;
+    }
+
+.column:nth-child(2) .match-lines .line.two {
+    height: 125px;
+}
+
+.column:nth-child(3) .match-lines .line.two {
+    height: 290px;
+}
+
+.column:nth-child(4) .match-lines .line.two {
+    height: 262px;
+}
+
+.column:nth-child(5) .match-lines .line.two {
+    height: 349px;
+}
+
+.disable-image .image,
+.disable-seed .seed,
+.disable-name .name,
+.disable-score .score {
+    display: none !important;
+}
+
+.disable-borders {
+    border-width: 0px !important;
+}
+
+    .disable-borders .team {
+        border-width: 0px !important;
+    }
+
+.disable-seperator .match-top {
+    border-bottom: 0px !important;
+}
+
+.disable-seperator .match-bottom {
+    border-top: 0px !important;
+}
+
+.disable-seperator .team:first-child {
+    margin-bottom: 0px;
+}
