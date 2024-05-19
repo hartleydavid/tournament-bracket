@@ -93,9 +93,15 @@ namespace TournamentBracket.Controllers
                 // return RedirectToAction("Create", tournament);//BadRequest("Please fill out all fields and require 3 participants");
             }
             string username = User.Identity.Name;
+            //Add the number of participants
+            tournament.NumberOfParticipants = Names.Count;
             //Add the user that created the bracket
             tournament.UserCreatedID = username;
+
+            //Remove the added Fields of tournament that are added outside the form. (Validity problems)
             ModelState.Remove("UserCreatedID");
+            ModelState.Remove("NumberOfParticipants");
+
             //Check if the bracket is a valid state (Checks userCreatedID for null reference)
             if (ModelState.IsValid)
             //if(TryValidateModel(tournament))

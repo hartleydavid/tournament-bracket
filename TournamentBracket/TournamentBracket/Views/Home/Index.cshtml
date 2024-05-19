@@ -20,7 +20,7 @@
                     .html("Dropped!");
             }
         });
-        $("#droppable2").droppable({
+        $("#droppable").droppable({
             drop: function (event, ui) {
                 $(this)
                     .addClass("ui-state-highlight")
@@ -33,22 +33,14 @@
 
 <link rel="stylesheet" href="~/css/TestBracket.css" asp-append-version="true" />
 
+<script scr="~/js/Script.js"></script>
+<script>
+    window.onload = function () {
+        generateTournamentBracket(16);
+    }
+</script>
 
-
-
-<div id="draggable" class="ui-widget-content">
-    <p>Drag me around</p>
-</div>
-
-<div id="droppable" class="ui-widget-header">
-    <p>Drop here</p>
-</div>
-
-<br/>
-
-<div id="droppable2" class="ui-widget-header">
-    <p>Or here</p>
-</div>
+<div class="t1" id="dynamic-bracket"></div>
 
 <br/>
 
@@ -59,11 +51,11 @@
             <!--Match "Object"-->
             <div class="match winner-top">
                 <div class="match-top team">
-                    <img src="https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg" alt="Icon" />
+                    <img src="https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg" alt="Icon" draggable="true"/>
                     <span class="name">Orlando </span>
                 </div>
                 <div class="match-bottom team">
-                    <img src="https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg" alt="Icon" />
+                    <img src="https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg" alt="Icon" draggable="true" />
                     <span class="name">D.C. </span>
                 </div>
                 <div class="match-lines">

@@ -10,12 +10,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title> @Html.DisplayFor(model => model.Name) </title>
-
 </head>
 
 <body>
 
-    <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/TestBracket.css" asp-append-version="true" />
+
+    <script scr="~/js/Script.js"></script>
+    <script>
+        window.onload = function(){
+            generateTournamentBracket(model.NumberOfParticipants);
+        }
+    </script>
 
 
     <h1>@Html.DisplayFor(model => model.Name)</h1>
@@ -43,6 +49,21 @@
         </dl>
     </div>
 
+
+    <div class="tournament" id="dynamic-bracket">
+
+    </div>
+
+    <div class="participant-menu">
+
+        @foreach (var participant in Model.Participants)
+        {    
+            <img src=@participant.ImageURL alt="Icon" />
+        }
+    
+    </div>
 </body>
+
+
 
 </html>
