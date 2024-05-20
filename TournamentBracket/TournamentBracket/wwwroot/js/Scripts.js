@@ -30,7 +30,7 @@ function generateTournamentBracket(participants) {
     //Switch case to send the number of columns to the respective dynamic function based on the number of participants
     switch (findSmallestMultiple(participants)) {
         case 4:
-            multipleOfFour(Math.sqrt(count), participants, bracketDiv);
+            multipleOfFour(Math.sqrt(participants), participants, bracketDiv);
             break;
         case 6:
             //multiple of 6
@@ -40,7 +40,7 @@ function generateTournamentBracket(participants) {
     }
 
     //Append the bracket to the html file
-    tournamentDiv.appendChild(bracket);
+    tournamentDiv.appendChild(bracketDiv);
 }
 
 function multipleOfFour(columns, participants, bracketDiv) {
@@ -71,7 +71,7 @@ function generateColumn(matches, columnDiv) {
     for (var i = 0; i < matches; i++) {
         var matchDiv = document.createElement("div");
         matchDiv.className = "match";
-        generateMatch(match);
+        generateMatch(matchDiv);
         columnDiv.appendChild(matchDiv);
     }
 }
@@ -98,7 +98,10 @@ function generateMatch(matchDiv) {
     matchLinesDiv.appendChild(lineOneDiv);
     matchLinesDiv.appendChild(lineTwoDiv);
     matchDiv.appendChild(matchLinesDiv);
-    matchLinesAltDiv.appendChild(lineOneDiv);
+
+    var lineOneAltDiv = document.createElement("div");
+    lineOneAltDiv.className = "line one";
+    matchLinesAltDiv.appendChild(lineOneAltDiv);
 
     matchDiv.appendChild(matchLinesAltDiv);
 
@@ -112,6 +115,8 @@ function generatePlayerSlot(matchDiv, isTop) {
     var img = document.createElement("img");
     img.src = "https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg"
     img.alt = "playerSlot"
+
+    participantDiv.appendChild(img);
 
     //Add the player slot
     matchDiv.appendChild(participantDiv);

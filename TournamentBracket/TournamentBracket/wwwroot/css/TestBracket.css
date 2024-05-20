@@ -152,3 +152,16 @@
 .disable-seperator .team:first-child {
     margin-bottom: 0px;
 }
+
+.participant-menu {
+    bottom: 0;
+    position: fixed;
+    background-color: aqua;
+    display: block;
+    width: 100%;
+}
+
+    .participant-menu img {
+        height: 75px;
+        width: 75px;
+    }
