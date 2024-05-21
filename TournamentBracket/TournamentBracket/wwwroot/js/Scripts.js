@@ -175,11 +175,16 @@ function generatePlayerSlot(matchDiv, slotName) {
     participantDiv.className = slotName;
 
     //The slot elements
-    var img = document.createElement("img");
-    img.src = "https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg"
-    img.alt = "playerSlot"
+    var playerSlotDiv = document.createElement("div");
+    playerSlotDiv.className = "player-slot";
+    playerSlotDiv.ondrop = "drop(event)";
+    playerSlotDiv.ondragover = "allowDrop(event)";
 
-    participantDiv.appendChild(img);
+    /*var img = document.createElement("img");
+    img.src = "https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg"
+    img.alt = "playerSlot"*/
+
+    participantDiv.appendChild(playerSlotDiv);
 
     //Add the player slot
     matchDiv.appendChild(participantDiv);
