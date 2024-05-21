@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
 }
 
-body::before {
+    body::before {
         content: "";
         background-image: url("https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/background pattern.png");
         background-size: cover; /* Adjust as needed */
@@ -24,9 +24,22 @@ body::before {
         height: 100%;
         opacity: 0.25; /* Adjust opacity value */
         z-index: -1; /* Ensure the background image is behind other content */
-}
+    }
 
 .Participants img {
-    max-width: 100px; 
-    max-height: 100px; 
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.participant-menu {
+    bottom: 0;
+    position: fixed;
+    background-color: aqua;
+    display: block;
+    width: 100%;
+}
+
+.participant-menu img{
+    height: 75px;
+    width: 75px;
 }

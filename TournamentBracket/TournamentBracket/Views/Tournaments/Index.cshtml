@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tournament Brackets</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -32,8 +32,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BracketOptions)
             </td>
+            <!--Find all the participants in the db that has this "items" ID-->
             <td>
-                @Html.DisplayFor(modelItem => item.Participants.Count)
+                @Html.DisplayFor(modelItem => item.NumberOfParticipants)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -1,0 +1,52 @@
+﻿@model TournamentBracket.Models.Tournament
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> @Html.DisplayFor(model => model.Name) </title>
+</head>
+
+<body>
+    <!--<link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />-->
+    <link rel="stylesheet" href="~/css/TestBracket.css" asp-append-version="true" />
+    <script src="~/js/Scripts.js" asp-append-version="true"></script>
+    <script>
+        var numberOfParticipants = @Model.NumberOfParticipants;
+
+
+        window.onload = function () {
+            generateTournamentBracket(numberOfParticipants);
+        }
+    </script>
+
+
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <div class="tournament" id="dynamic-bracket">
+
+    </div>
+
+    <div class="participant-menu">
+
+        @foreach (var participant in Model.Participants)
+        {    
+            <img src=@participant.ImageURL alt="Icon" />
+        }
+    
+    </div>
+</body>
+
+
+
+</html>

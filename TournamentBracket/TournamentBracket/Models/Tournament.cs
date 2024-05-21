@@ -18,6 +18,7 @@ namespace TournamentBracket.Models
         //Navigation Property to represent the collection of participants in the tournament
         public ICollection<Participant> Participants { get; set; } = new List<Participant>();
 
+        public int NumberOfParticipants {  get; set; }
         //public ICollection<Match> Matches{ get; set; } = new List<Match>();
         
         //Description of Tournament

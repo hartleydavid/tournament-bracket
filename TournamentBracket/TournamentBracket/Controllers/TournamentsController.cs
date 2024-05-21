@@ -30,7 +30,7 @@ namespace TournamentBracket.Controllers
             //If the index was found, return the substring up until that index
             if (atIndex > 0)
             {
-                return username[..atIndex];
+                return username[..atIndex].Replace('.','-');
             }
             else
             {
@@ -67,7 +67,7 @@ namespace TournamentBracket.Controllers
                 return NotFound();
             }
 
-            return View(tournament);
+            return View("DblBracket", tournament);
         }
 
         // GET: Tournaments/Create
@@ -86,24 +86,22 @@ namespace TournamentBracket.Controllers
             List<string> Names, List<IFormFile> Images)
         {
 
-     
-            //Check if any files were uploaded
-            if(Images == null || Images.Count == 0)
-            {
-                //Change the Response
-                //Alert about invalid input and redirect back to creation
-                return BadRequest("No File uploaded");
-            }
-
-            //Check if the number of images and names do not match
+            //Check if the number of images and names do not match and meet the minimun requirement
             if( !(Names.Count == Images.Count && Names.Count >= 3))
             {
-                return BadRequest("Please fill out all fields and require 3 participants");
+                return View(tournament);
+                // return RedirectToAction("Create", tournament);//BadRequest("Please fill out all fields and require 3 participants");
             }
             string username = User.Identity.Name;
+            //Add the number of participants
+            tournament.NumberOfParticipants = Names.Count;
             //Add the user that created the bracket
             tournament.UserCreatedID = username;
+
+            //Remove the added Fields of tournament that are added outside the form. (Validity problems)
             ModelState.Remove("UserCreatedID");
+            ModelState.Remove("NumberOfParticipants");
+
             //Check if the bracket is a valid state (Checks userCreatedID for null reference)
             if (ModelState.IsValid)
             //if(TryValidateModel(tournament))
