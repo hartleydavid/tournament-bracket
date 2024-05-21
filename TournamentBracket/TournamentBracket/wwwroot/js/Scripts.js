@@ -43,6 +43,12 @@ function generateTournamentBracket(participants) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
+/**
+ * 
+ * @param {any} columns
+ * @param {any} participants
+ * @param {any} bracketDiv
+ */
 function multipleOfFour(columns, participants, bracketDiv) {
 
     //The first round will have half of the number of participants of rounds
@@ -54,7 +60,7 @@ function multipleOfFour(columns, participants, bracketDiv) {
         var columnDiv = document.createElement("div");
         columnDiv.className = `column ${i}`; 
 
-        generateColumn(matchesPerColumn, columnDiv);
+        generateColumn(matchesPerColumn, columnDiv, i == columns);
 
         //Half the number of matches for the next round
         matchesPerColumn /= 2;
@@ -62,43 +68,95 @@ function multipleOfFour(columns, participants, bracketDiv) {
         bracketDiv.appendChild(columnDiv);
     }
 
+    //Generate the Final column in the bracket
+    generateWinnerColumn(bracketDiv);
+
 }
 
+function generateWinnerColumn(bracketdiv) {
+    //Create the final column for the winner
+    var winnerColumnDiv = document.createElement("div");
+    winnerColumnDiv.className = "column last";
 
-function generateColumn(matches, columnDiv) {
+    var winnerDiv = document.createElement("div");
+    winnerDiv.className = "winner";
+
+    //Generate the winner slot "match"
+    generatePlayerSlot(winnerDiv, "winner-slot");
+
+    //Create line div's for CSS
+    var matchLinesAltDiv = document.createElement("div");
+    matchLinesAltDiv.className = "match-lines alt";
+
+    var lineExtensionDiv = document.createElement("div");
+    lineExtensionDiv.className = "line extended";
+
+    //Append Elements 
+    matchLinesAltDiv.appendChild(lineExtensionDiv);
+
+    winnerColumnDiv.appendChild(winnerDiv);
+    winnerColumnDiv.appendChild(matchLinesAltDiv);
+
+    //append to the bracket
+    bracketdiv.appendChild(winnerColumnDiv);
+}
+
+/**
+ * 
+ * @param {any} matches
+ * @param {any} columnDiv
+ * @param {any} isFinals
+ */
+function generateColumn(matches, columnDiv, isFinals) {
+
+    /*Last match in the last column does not inlcude the line 2*/ 
 
     //For the number of matches that will be in this column
     for (var i = 0; i < matches; i++) {
         var matchDiv = document.createElement("div");
         matchDiv.className = "match";
-        generateMatch(matchDiv);
+        generateMatch(matchDiv, isFinals);
         columnDiv.appendChild(matchDiv);
     }
+
+
 }
 
-function generateMatch(matchDiv) {
+/**
+ * 
+ * @param {any} matchDiv
+ * @param {any} isFinals
+ */
+function generateMatch(matchDiv, isFinals) {
     //Add the player slots 
-    generatePlayerSlot(matchDiv, true);
-    generatePlayerSlot(matchDiv, false);
+    generatePlayerSlot(matchDiv, "match-top team");
+    generatePlayerSlot(matchDiv, "match-bottom team");
 
     //Create all the line related div's
     var matchLinesDiv = document.createElement("div");
     matchLinesDiv.className = "match-lines";
 
-    var matchLinesAltDiv = document.createElement("div");
-    matchLinesAltDiv.className = "match-lines alt";
-
+    //Create the First line div and append to the parent div
     var lineOneDiv = document.createElement("div");
     lineOneDiv.className = "line one";
-
-    var lineTwoDiv = document.createElement("div");
-    lineTwoDiv.className = "line two";
-
-    //Build the structure
     matchLinesDiv.appendChild(lineOneDiv);
-    matchLinesDiv.appendChild(lineTwoDiv);
+
+    //If we are not in the finals match
+    if (!isFinals) {
+        //Create the "line two" line in the html file
+        var lineTwoDiv = document.createElement("div");
+        lineTwoDiv.className = "line two";
+
+        matchLinesDiv.appendChild(lineTwoDiv);
+    }
+
+    //Append the lines to the match lines div
     matchDiv.appendChild(matchLinesDiv);
 
+    //Create the Alt Lines Div (Converged line)
+    var matchLinesAltDiv = document.createElement("div");
+    matchLinesAltDiv.className = "match-lines alt";
+    //The Line Div iteslf
     var lineOneAltDiv = document.createElement("div");
     lineOneAltDiv.className = "line one";
     matchLinesAltDiv.appendChild(lineOneAltDiv);
@@ -107,9 +165,14 @@ function generateMatch(matchDiv) {
 
 }
 
-function generatePlayerSlot(matchDiv, isTop) {
+/**
+ * 
+ * @param {any} matchDiv
+ * @param {any} isTop
+ */
+function generatePlayerSlot(matchDiv, slotName) {
     var participantDiv = document.createElement("div");
-    participantDiv.className = isTop ? "match-top team" : "match-bottom team";
+    participantDiv.className = slotName;
 
     //The slot elements
     var img = document.createElement("img");
@@ -121,48 +184,3 @@ function generatePlayerSlot(matchDiv, isTop) {
     //Add the player slot
     matchDiv.appendChild(participantDiv);
 }
-
-
-/**
-            <div class="match">
-                <div class="match-top team">
-                    <img src="https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg" alt="Icon" />
-                    <span class="name">Orlando </span>
-                </div>
-                <div class="match-bottom team">
-                    <img src="https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg" alt="Icon" />
-                    <span class="name">D.C. </span>
-                </div>
-                <div class="match-lines">
-                    <div class="line one"></div>
-                    <div class="line two"></div>
-                </div>
-                <div class="match-lines alt">
-                    <div class="line one"></div>
-                </div>
-            </div>
- */
-//tournament
-    //bracket
-        //Column
-            //Match (no need for winner-top/bottom?)
-                //Top Team
-                //Bottom Team
-                //Match Lines
-                    //Line one
-                    //Line two
-                //Match Lines alt
-                    //Line one
-
-
-/**
- * Test Case 16 teams
- * Column 1: 16 Teams
- * Column 2: 8 Teams
- * Column 3: 4 Teams
- * Column 4: 2 Teams
- * Column 5: 1 Team
- * 
- * There are a sqrt() + 1 columns for 16
- * 
- */

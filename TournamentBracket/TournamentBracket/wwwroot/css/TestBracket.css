@@ -24,6 +24,20 @@
     margin-right: 55px;
 }
 
+.winner {
+    display: flex;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 75px;
+    height: 75px;
+    margin: 0px 24px 24px 0;
+}
+    .winner img {
+        height: 200px;
+        width: 200px;
+    }
+
 .match {
     position: relative;
     display: flex;
@@ -94,6 +108,14 @@
         left: -38px;
     }
 
+    .match-lines .line.extended {
+        position: absolute;
+        width: 40px;
+        height: 1px;
+        left: 655px;
+        top: 23px;
+    }
+
 .match:nth-child(even) .match-lines .line.two {
     transform: translate(0, -100%);
 }
@@ -102,12 +124,8 @@
     display: none;
 }
 
-.column:last-child .match-lines {
-    display: none;
-}
-
     .column:last-child .match-lines.alt {
-        display: block;
+        display: block;   
     }
 
 .column:nth-child(2) .match-lines .line.two {
