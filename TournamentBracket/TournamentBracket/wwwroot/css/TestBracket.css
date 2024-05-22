@@ -1,6 +1,4 @@
 ﻿.tournament {
-    height: 100%;
-    width: 100%;
     position: absolute;
     padding-bottom: 800px;
 }
@@ -29,7 +27,7 @@
     flex-direction: column;
     width: 200px;
     height: 200px;
-    margin:150px 24px 24px 0;
+    margin: 150px 24px 24px 0;
 }
     .winner .winner-slot {
         height: 200px;
@@ -54,8 +52,7 @@
         border-radius: 0 0 2px 2px;
     }
 
-    
-    .match .player-slot{
+    .match .player-slot {
         height: 75px;
         width: 75px;
         border: 1px dashed black;
@@ -72,6 +69,7 @@
     bottom: 0;
     margin-top: 35px;
     right: -1px;
+    pointer-events: none; /* Prevent it from blocking interactivity */
 }
 
     .match-lines .line {

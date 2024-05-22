@@ -195,11 +195,11 @@ function generatePlayerSlot(matchDiv, slotName) {
     //The slot elements
     var playerSlotDiv = document.createElement("div");
     playerSlotDiv.className = "player-slot";
+    //Add event listeners for the drag and drop
     playerSlotDiv.addEventListener('drop', drop);
     playerSlotDiv.addEventListener('dragover', allowDrop);
-    //playerSlotDiv.ondrop = "drop(event)";
-    //playerSlotDiv.ondragover = "allowDrop(event)";
 
+    //Add the slot div to the 
     participantDiv.appendChild(playerSlotDiv);
 
     //Add the player slot
