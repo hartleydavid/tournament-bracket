@@ -1,3 +1,17 @@
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData("text");
+    event.target.appendChild(document.getElementById(data));
+}
+
 /** Function that will find the smallest number that the parameter value is a multiple of
  * Excluding 2 from the possible values returned. 
  * The minimum number of participants is 3, making 4 the smallest possible even multiple
@@ -19,9 +33,9 @@ function findSmallestMultiple(number) {
 /**
  * 
  */
-function generateTournamentBracket(participants) {
+function generateTournamentBracket(participants, elementID) {
     //Get the tournament DIV
-    var tournamentDiv = document.getElementById("dynamic-bracket");
+    var tournamentDiv = document.getElementById(elementID);
 
     //Create the bracket div
     var bracketDiv = document.createElement("div");
@@ -73,6 +87,10 @@ function multipleOfFour(columns, participants, bracketDiv) {
 
 }
 
+/**
+ * 
+ * @param {any} bracketdiv
+ */
 function generateWinnerColumn(bracketdiv) {
     //Create the final column for the winner
     var winnerColumnDiv = document.createElement("div");
@@ -177,12 +195,10 @@ function generatePlayerSlot(matchDiv, slotName) {
     //The slot elements
     var playerSlotDiv = document.createElement("div");
     playerSlotDiv.className = "player-slot";
-    playerSlotDiv.ondrop = "drop(event)";
-    playerSlotDiv.ondragover = "allowDrop(event)";
-
-    /*var img = document.createElement("img");
-    img.src = "https://tournamentbracketimages.blob.core.windows.net/publishedtesting-test/coolduck_400x400.jpg"
-    img.alt = "playerSlot"*/
+    playerSlotDiv.addEventListener('drop', drop);
+    playerSlotDiv.addEventListener('dragover', allowDrop);
+    //playerSlotDiv.ondrop = "drop(event)";
+    //playerSlotDiv.ondragover = "allowDrop(event)";
 
     participantDiv.appendChild(playerSlotDiv);
 
