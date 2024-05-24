@@ -23,7 +23,7 @@
 
 
         window.onload = function () {
-            generateTournamentBracket(numberOfParticipants);
+            generateTournamentBracket(numberOfParticipants, "dynamic-bracket");
         }
     </script>
 
@@ -33,18 +33,18 @@
         <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
         <a asp-action="Index">Back to List</a>
     </div>
-    <div class="tournament" id="dynamic-bracket">
 
-    </div>
+    <div class="tournament" id="dynamic-bracket"></div>
 
     <div class="participant-menu">
 
         @foreach (var participant in Model.Participants)
         {    
-            <img src=@participant.ImageURL alt="Icon" />
+            <img id =@participant.Name src=@participant.ImageURL draggable="true" ondragstart="drag(event)" alt="Icon" />
         }
     
     </div>
+
 </body>
 
 
