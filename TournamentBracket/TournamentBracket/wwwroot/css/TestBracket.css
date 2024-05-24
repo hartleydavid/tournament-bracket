@@ -1,6 +1,6 @@
 ﻿.tournament {
     position: absolute;
-    padding-bottom: 800px;
+    padding-bottom: 100px;
 }
 
 .bracket {
@@ -34,6 +34,14 @@
         width: 200px;
         border: 1px dashed black;
     }
+        .winner .winner-slot .player-slot {
+            height: 200px;
+            width: 200px;
+        }
+        .winner .winner-slot .player-slot img {
+            height: 200px;
+            width: 200px;
+        }
 
 .match {
     position: relative;

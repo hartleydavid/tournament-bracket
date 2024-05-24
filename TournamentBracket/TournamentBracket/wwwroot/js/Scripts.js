@@ -12,6 +12,7 @@ function drop(event) {
     event.target.appendChild(document.getElementById(data));
 }
 
+
 /** Function that will find the smallest number that the parameter value is a multiple of
  * Excluding 2 from the possible values returned. 
  * The minimum number of participants is 3, making 4 the smallest possible even multiple
@@ -30,8 +31,12 @@ function findSmallestMultiple(number) {
     return number;
 }
 
-/**
+/** Function will generate the tournament bracket html code to the webpage
+ * Uses the number of participants to dynamically generate the bracket and 
+ * attaches it as a child to the given html element parameter.
  * 
+ * @param {any} participants
+ * @param {any} elementID
  */
 function generateTournamentBracket(participants, elementID) {
     //Get the tournament DIV
