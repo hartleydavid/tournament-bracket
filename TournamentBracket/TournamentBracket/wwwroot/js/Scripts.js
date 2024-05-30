@@ -9,6 +9,7 @@ function drag(event) {
 function drop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
+
     event.target.appendChild(document.getElementById(data));
 }
 
@@ -35,8 +36,8 @@ function findSmallestMultiple(number) {
  * Uses the number of participants to dynamically generate the bracket and 
  * attaches it as a child to the given html element parameter.
  * 
- * @param {any} participants
- * @param {any} elementID
+ * @param {int} participants: The number of participants in the tournament
+ * @param {string} elementID: The ID of the tournament bracket div html element to append to
  */
 function generateTournamentBracket(participants, elementID) {
     //Get the tournament DIV
@@ -62,11 +63,11 @@ function generateTournamentBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
-/**
+/** Function will dynamically create a tournament bracket that has a multiple of 4 participants
  * 
- * @param {any} columns
- * @param {any} participants
- * @param {any} bracketDiv
+ * @param {int} columns: The number of columns that will be generated 
+ * @param {int} participants: The number of participants
+ * @param {var} bracketDiv: The Div element that represents the bracket we will append to
  */
 function multipleOfFour(columns, participants, bracketDiv) {
 
