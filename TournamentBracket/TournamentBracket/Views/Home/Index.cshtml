@@ -2,13 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<link rel="stylesheet" href="~/css/TestBracket.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
 
 <script src="~/js/Scripts.js" asp-append-version="true"></script>
 <script>
     window.onload = function () {
         generateTournamentBracket(16, "dynamic-bracket");
+        generateTournamentBracket(16, "dynamic-losers-bracket");
     }
 </script>
 
 <div class="tournament" id="dynamic-bracket"></div>
+
+<div class="losers-tournament" id="dynamic-losers-bracket"></div>
+
