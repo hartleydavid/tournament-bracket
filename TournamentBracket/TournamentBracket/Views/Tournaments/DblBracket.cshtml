@@ -15,13 +15,13 @@
 </head>
 
 <body>
-    <!--<link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />-->
     <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
     <script src="~/js/Scripts.js" asp-append-version="true"></script>
+
     <script>
         var numberOfParticipants = @Model.NumberOfParticipants;
 
-
+        //Load the Tournament brackets
         window.onload = function () {
             generateTournamentBracket(numberOfParticipants, "dynamic-bracket");
             generateTournamentBracket(numberOfParticipants, "dynamic-losers-bracket");
@@ -40,8 +40,8 @@
     </div>
 
     <div class="tournament-container">
-            <div class="tournament" id="dynamic-bracket"></div>
-            <div class="tournament" id="dynamic-losers-bracket"></div>
+        <div class="tournament" id="dynamic-bracket"></div>
+        <div class="tournament" id="dynamic-losers-bracket"></div>
     </div>
 
 

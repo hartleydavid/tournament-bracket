@@ -56,10 +56,8 @@ namespace TournamentBracket.BlobStorage
         {
             return _storageAccount;
         }
-        /**
-         * 
-         * 
-         */
+
+
         public async Task<BlobResponseData> UploadAsync(IFormFile file /*, string TournamentName*/)
         {
             BlobResponseData response = new BlobResponseData();
