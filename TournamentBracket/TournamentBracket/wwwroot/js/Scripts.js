@@ -129,8 +129,15 @@ function generateWinnerColumn(bracketdiv) {
     var winnerColumnDiv = document.createElement("div");
     winnerColumnDiv.className = "column last";
 
+
     var winnerDiv = document.createElement("div");
     winnerDiv.className = "winner";
+
+    var img = document.createElement("img");
+    img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
+    img.className = "crown"
+
+    winnerDiv.appendChild(img);
 
     //Generate the winner slot "match"
     generatePlayerSlot(winnerDiv, "winner-slot");

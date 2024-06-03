@@ -27,8 +27,16 @@ html {
     padding-bottom: 100px;
 }
 
+    .tournament-container h1 {
+        font-family: 'tekton-pro', sans-serif;
+        font-size: 60px;
+        padding: 20px;
+        margin-left: 20px;
+    }
+
 .tournament {
     position: relative;
+    margin-top: -100px;
 }
 
 .bracket {
@@ -51,12 +59,16 @@ html {
 .winner {
     display: flex;
     position: relative;
-    display: flex;
     flex-direction: column;
     width: 200px;
     height: 200px;
-    margin: 150px 24px 24px 0;
+    margin: -150px 24px 24px 0;
 }
+    .winner .crown{
+        display: center;
+        height: 150px;
+        width: 150px;
+    }
     .winner .winner-slot {
 
         height: 195px;
