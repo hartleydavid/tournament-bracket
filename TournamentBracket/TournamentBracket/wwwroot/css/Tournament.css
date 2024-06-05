@@ -1,10 +1,18 @@
 ﻿
+/*Edits the container CSS from the _layout 
+ * file. Makes bracket not cemtered in the
+ * middle of the page
+*/
 .container {
     margin: 0 auto;
     padding: 0;
     max-width: 100%; /* Ensure it doesn't exceed the viewport width */
 }
 
+/*
+    Gives the Pokken Pattern on the page
+    the follow scrolling of the page
+*/
 body {
     background-image: url("https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/background.png"); /* Path to your image */
     background-size: cover; /* Ensure the image covers the entire page */
@@ -16,10 +24,15 @@ body {
     height: 100%; /* Ensure the body takes the full height */
 }
 
+/* Ensure the html element takes the full height */
 html {
-    height: 100%; /* Ensure the html element takes the full height */
+    height: 100%; 
 }
 
+/*
+    Makes the Pokken logo stay up in the 
+    right hand corner
+*/
 .Pokken-Logo{
     position: absolute;
     top: 60px;
@@ -28,6 +41,10 @@ html {
     width: 650px;
 }
 
+/*
+    Makes the image of braxien stay to the 
+    left of the pokken logo
+*/
 .braxian {
     position: absolute;
     top: 60px;
@@ -35,25 +52,42 @@ html {
     height: 350px;
 }
 
+/*
+    Allows the tournaments to be seperated
+    in the page with space between them
+*/
 .tournament-container{
     display: flex;
     flex-direction: column;
     width: 100%;
     padding-bottom: 100px;
 }
-
+    /*
+        Gives the titles the tekton font
+        and sizing adjustments
+    */
     .tournament-container h1 {
         font-family: 'tekton-pro', sans-serif;
         font-size: 60px;
+    
         padding: 20px;
         margin-left: 20px;
     }
 
+/*
+    Lessens the space between the brackets
+*/
 .tournament {
     position: relative;
     margin-top: -100px;
 }
 
+/*
+    Ensures the brackets follow a row
+    formatting. Pads the bracket to the 
+    right slightly and gives padding around
+    bracket
+*/
 .bracket {
     display: flex;
     flex-direction: row;
@@ -62,6 +96,10 @@ html {
     margin: 5px;
 }
 
+/* 
+    Gives column formatting for each
+    round of the bracket
+*/
 .column {
     display: flex;
     flex-direction: column;
@@ -71,6 +109,10 @@ html {
     margin-right: 55px;
 }
 
+/* 
+    Gives the winner column some special
+    formatting (bigger space)
+*/
 .winner {
     display: flex;
     position: relative;
@@ -79,18 +121,24 @@ html {
     height: 200px;
     margin: -150px 24px 24px 0;
 }
+    /*Modify the crown image*/
     .winner .crown{
         display: center;
         height: 150px;
         width: 150px;
     }
-    .winner .winner-slot {
 
+    /*Modify the slot of the winner*/
+    .winner .winner-slot {
         height: 195px;
         width: 195px;
         border: 1px dashed black;
         background-color: lightgrey;
     }
+        /*
+            Modify the player slot itself
+            of the winner
+        */
         .winner .winner-slot .player-slot {
             position: relative;
             display: flex;
@@ -99,12 +147,20 @@ html {
             height: 195px;
             width: 195px;
         }
+            /*
+                Modify the image of the
+                player in the slot
+            */
             .winner .winner-slot .player-slot img {
                 position: absolute;
                 height: 200px;
                 width: 200px;
             }
 
+/*
+    Modifies the match div in the bracket
+    Has it smaller than the player images
+*/
 .match {
     position: relative;
     display: flex;
@@ -114,14 +170,23 @@ html {
     margin: 70px 24px 24px 0;
 }
 
+    /*
+        Modify the top players slot
+    */
     .match .match-top {
         border-radius: 2px 2px 0 0;
     }
 
+    /*
+        Modifies the bottom players slot
+    */
     .match .match-bottom {
         border-radius: 0 0 2px 2px;
     }
 
+    /*
+        Modify the player slots
+    */
     .match .player-slot {
         position: relative;
         display: flex;
@@ -132,12 +197,21 @@ html {
         border: 1px dashed black;
         background-color: lightgrey;
     }
+
+    /*
+        Modifies the images of the 
+        players in the slots
+    */
     .match .player-slot img{
         position: absolute;
         height: 75px;
         width: 75px;
     }
 
+/*
+    Modfies the lines that connect the
+    brackets together
+*/
 .match-lines {
     display: block;
     position: absolute;
@@ -147,34 +221,56 @@ html {
     right: -1px;
     pointer-events: none; /* Prevent it from blocking interactivity */
 }
-
+    
+    /*
+        Give the line attributes
+    */
     .match-lines .line {
         background: red;
         position: absolute;
     }
 
+        /*
+            The line from the right
+            of the match to the next
+            round
+        */
         .match-lines .line.one {
             height: 1px;
             width: 45px;
             left: -5px;
         }
 
+        /*
+            The vertical lines of the 
+            bracket
+        */
         .match-lines .line.two {
             height: 95px;
             width: 1px;
             left: 40px;
         }
-
+    
+    /*
+        The lines that come the left 
+        of the match to the previous
+        round
+    */
     .match-lines.alt {
         left: -33px;
         width: 40px;
     }
 
+    /**/
     .match-lines.alt .line.one{
         width: 38px;
     }
 
-
+    /*
+        The line extending from the
+        winner slot to the championship
+        match
+    */
     .match-lines .line.extended {
         width: 45px;
         height: 1px;
@@ -182,34 +278,60 @@ html {
         top: 23px;
     }
 
+/**/
 .match:nth-child(even) .match-lines .line.two {
     transform: translate(0, -100%);
 }
 
+/*
+    Remove the left pointing lines for the
+    first round
+*/
 .column:first-child .match-lines.alt {
     display: none;
 }
-
+    /*
+        Block the last nodes lines as well
+    */
     .column:last-child .match-lines.alt {
         display: block;   
     }
-
+/*
+    For the second round extend the 
+    vertical lines
+*/
 .column:nth-child(2) .match-lines .line.two {
     height: 175px;
 }
 
+/*
+    For the third round extend the 
+    vertical lines
+*/
 .column:nth-child(3) .match-lines .line.two {
     height: 350px;
 }
 
+/*
+    For the fourth round extend the 
+    vertical lines
+*/
 .column:nth-child(4) .match-lines .line.two {
     height: 400px;
 }
 
+/*
+    For the fifth round extend the 
+    vertical lines
+*/
 .column:nth-child(5) .match-lines .line.two {
     height: 500px;
 }
 
+/*
+    Ensures the list of participants
+    stays at the bottom of the page
+*/
 .participant-menu {
     bottom: 0;
     position: fixed;
@@ -217,7 +339,11 @@ html {
     display: block;
     width: 100%;
 }
-
+    
+    /*
+        Images in menu are centered
+        and size is maintained
+    */
     .participant-menu img {
         position:center;
         height: 75px;

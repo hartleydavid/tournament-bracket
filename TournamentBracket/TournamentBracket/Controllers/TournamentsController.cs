@@ -23,8 +23,16 @@ namespace TournamentBracket.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Method will format the users email to the username format
+        /// (Removes everything from the @ to the length from the string
+        /// </summary>
+        /// <param name="username">The email of the user we are going to format</param>
+        /// <returns>String of the username in the correct formatting</returns>
+        /// <exception cref="ArgumentException">Exception if a non email is entered</exception>
         private static string FormatUserName(string username)
         {
+            //Find the inex of the @ in the email
             int atIndex = username.IndexOf("@");
 
             //If the index was found, return the substring up until that index
@@ -38,7 +46,11 @@ namespace TournamentBracket.Controllers
             }
         }
 
-        // GET: Tournaments
+        /// <summary>
+        /// Method that returns the view to the Index page of tournamets.
+        /// Page is filter by the user logged in so only their brackets are visible
+        /// </summary>
+        /// <returns>The filtered index view based on the user that is logged in</returns>
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -49,6 +61,12 @@ namespace TournamentBracket.Controllers
             //return View(await _context.TournamentBrackets.ToListAsync());
         }
 
+        /// <summary>
+        /// Method will redirect the page to the details view that is selected
+        /// CURRENTLY WILL ONLY GO TO DOUBLE ELIMINATION PAGE
+        /// </summary>
+        /// <param name="id">The id of the bracket</param>
+        /// <returns>The view of the bracket</returns>
         // GET: Tournaments/Details/5
         [Authorize]
         public async Task<IActionResult> Details(int? id)
@@ -70,6 +88,10 @@ namespace TournamentBracket.Controllers
             return View("DblBracket", tournament);
         }
 
+        /// <summary>
+        /// Redirects page to the create view
+        /// </summary>
+        /// <returns>The create view for tournament brackets</returns>
         // GET: Tournaments/Create
         [Authorize]
         public IActionResult Create()
@@ -77,6 +99,14 @@ namespace TournamentBracket.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Method will create the tournament bracket into the database and also
+        /// create all necessary components of the bracket
+        /// </summary>
+        /// <param name="tournament">The name of the tournament</param>
+        /// <param name="Names">The list of names of participants entered</param>
+        /// <param name="Images">The list of Image files entered</param>
+        /// <returns>The view of the tournament created</returns>
         // POST: Tournaments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -92,6 +122,7 @@ namespace TournamentBracket.Controllers
                 return View(tournament);
                 // return RedirectToAction("Create", tournament);//BadRequest("Please fill out all fields and require 3 participants");
             }
+            //Get the username of the current user
             string username = User.Identity.Name;
             //Add the number of participants
             tournament.NumberOfParticipants = Names.Count;
@@ -115,6 +146,7 @@ namespace TournamentBracket.Controllers
 
                 try
                 {
+                    //create the blob 
                     blobFileServie = new(FormatUserName(username), tournament.Name, true);
                 }catch (Exception ex)
                 {
@@ -146,63 +178,20 @@ namespace TournamentBracket.Controllers
                 //Remove previous save and just have this one?
                 await _context.SaveChangesAsync();
 
-
+                //Redirect to the index page
                 return RedirectToAction(nameof(Index));
             }
+
+            //Model state is invald, return the create view
             return View(tournament);
         }
 
-        // GET: Tournaments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var tournament = await _context.TournamentBrackets.FindAsync(id);
-            if (tournament == null)
-            {
-                return NotFound();
-            }
-            return View(tournament);
-        }
-
-        // POST: Tournaments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BracketOptions")] Tournament tournament)
-        {
-            if (id != tournament.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(tournament);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TournamentExists(tournament.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(tournament);
-        }
-
+        /// <summary>
+        /// Method that will search if the tournament that is attempted to 
+        /// be deleted and delete it if possible
+        /// </summary>
+        /// <param name="id">The ID of the bracket</param>
+        /// <returns>The confirm delete view</returns>
         // GET: Tournaments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -221,6 +210,12 @@ namespace TournamentBracket.Controllers
             return View(tournament);
         }
 
+        /// <summary>
+        /// On confirmed delete, go about deleting the bracket form the backend
+        /// Remove all parts from the DB and delete the blob container
+        /// </summary>
+        /// <param name="id">The ID of the bracket</param>
+        /// <returns>The index view</returns>
         // POST: Tournaments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -229,7 +224,6 @@ namespace TournamentBracket.Controllers
             var tournament = await _context.TournamentBrackets.FindAsync(id);
             if (tournament != null)
             {
-               
                 //Connect to blob storage, format the username to cut off the @ tag
                 BlobFileServie blobFileServie = new BlobFileServie(FormatUserName(User.Identity.Name), tournament.Name, false);
                 //Delete the container for this tournament
@@ -242,9 +236,5 @@ namespace TournamentBracket.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TournamentExists(int id)
-        {
-            return _context.TournamentBrackets.Any(e => e.Id == id);
-        }
     }
 }

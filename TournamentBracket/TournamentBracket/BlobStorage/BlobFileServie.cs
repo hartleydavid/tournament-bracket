@@ -22,7 +22,14 @@ namespace TournamentBracket.BlobStorage
         private readonly BlobContainerClient _filesContainter;
 
 
-
+        /// <summary>
+        /// Constructor that takes the username, tournament name (blob container), and boolean value on if its creating a bracket
+        /// The constructor will connect to the account via parameters and create a blob container
+        /// if we are trying to create one, and then connect to the container
+        /// </summary>
+        /// <param name="UserName">The username of the user connecting to blob service</param>
+        /// <param name="TournamentName">The name of the tournament</param>
+        /// <param name="isCreating">Boolean on if the user is creating a bracket or just connecting to it</param>
         public BlobFileServie(string UserName, string TournamentName, bool isCreating)
         {
             //Check if the username provided is valid (Not null)
@@ -46,19 +53,31 @@ namespace TournamentBracket.BlobStorage
            
         }
 
-
+        /// <summary>
+        /// Getter that will retrieve and return the name of the blob container
+        /// </summary>
+        /// <returns>The name of the blob container that is connected to from the constructor</returns>
         public string GetBlobName()
         {
             return _filesContainter.Name;
         }
 
+        /// <summary>
+        /// Getter that returns the name of the storage account of the blob container
+        /// Is the "username" of the profile (@... less email address)
+        /// </summary>
+        /// <returns>String that is the name of the storage account of the blob</returns>
         public string GetStorageAccountName()
         {
             return _storageAccount;
         }
 
-
-        public async Task<BlobResponseData> UploadAsync(IFormFile file /*, string TournamentName*/)
+        /// <summary>
+        /// Function that uploads a file to the files container of the blob storage 
+        /// </summary>
+        /// <param name="file"> The IFormFile object of the file we are uploading</param>
+        /// <returns>Response data on the file upload</returns>
+        public async Task<BlobResponseData> UploadAsync(IFormFile file)
         {
             BlobResponseData response = new BlobResponseData();
 
@@ -89,10 +108,10 @@ namespace TournamentBracket.BlobStorage
             return response;
         }
 
-        /**
-         * 
-         * 
-         */
+        /// <summary>
+        /// Function will delete the blob container that we are connected to.
+        /// </summary>
+        /// <returns>Response data of the delete command</returns>
         public async Task<BlobResponseData> DeleteAsync()
         {
             BlobResponseData response = new BlobResponseData();
