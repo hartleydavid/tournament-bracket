@@ -89,6 +89,30 @@ function generateTournamentBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
+function generateFinalsMatchBracket(elementID) {
+    var tournamentDiv = document.getElementById(elementID);
+
+    //Create the bracket div
+    var bracketDiv = document.createElement("div");
+    bracketDiv.className = "bracket";
+
+    //Create a 1v1 tournament Bracket
+
+    //generate the column
+    var columnDiv = document.createElement("div");
+    columnDiv.className = `column 1`;
+    generateColumn(1, columnDiv, true);
+
+    //Append the column to the bracket
+    bracketDiv.appendChild(columnDiv);
+    
+    //Generate the Final column in the bracket
+    generateWinnerColumn(bracketDiv);
+
+    //Append the bracket to the html file
+    tournamentDiv.appendChild(bracketDiv);
+}
+
 /** Function will dynamically create a tournament bracket that has a multiple of 4 participants
  * 
  * @param {int} columns: The number of columns that will be generated 
@@ -147,6 +171,7 @@ function generateWinnerColumn(bracketdiv) {
     matchLinesAltDiv.className = "match-lines alt";
 
     var lineExtensionDiv = document.createElement("div");
+    //lineExtensionDiv.className = "line extended";
     lineExtensionDiv.className = "line extended";
 
     //Append Elements 

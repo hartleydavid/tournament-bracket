@@ -26,6 +26,7 @@
         //Load the Tournament brackets
         window.onload = function () {
             generateTournamentBracket(numberOfParticipants, "dynamic-bracket");
+            generateFinalsMatchBracket("dynamic-finals-bracket")
             generateTournamentBracket(numberOfParticipants, "dynamic-losers-bracket");
         }
     </script>
@@ -38,7 +39,10 @@
     <div class="tournament-container">
         <h1>Main</h1>
         <div class="tournament" id="dynamic-bracket"></div>
-        <h1>Losers</h1>
+        <h1>Winner's bout</h1>
+        <div class="final-match-tournament" id="dynamic-finals-bracket"></div>
+
+        <h1>Loser's</h1>
         <div class="tournament" id="dynamic-losers-bracket"></div>
     </div>
 

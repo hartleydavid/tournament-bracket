@@ -1,4 +1,12 @@
-﻿
+﻿/*
+    Most of CSS code/structure in regards to
+    the tournament bracket formatting 
+    (especially the lines connecting matches)
+    are derived and edited from mattc0m's solution
+    found at: https://www.cssscript.com/tournament-bracket-flexbox/
+*/
+
+
 /*Edits the container CSS from the _layout 
  * file. Makes bracket not cemtered in the
  * middle of the page
@@ -156,7 +164,13 @@ html {
                 height: 200px;
                 width: 200px;
             }
+.final-match-tournament{
+    margin-left: 600px;
+}
 
+    .final-match-tournament .match-lines .line.extended {
+        left:180px;
+    }
 /*
     Modifies the match div in the bracket
     Has it smaller than the player images

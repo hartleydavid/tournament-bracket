@@ -7,6 +7,7 @@
 <script>
     window.onload = function () {
         generateTournamentBracket(16, "dynamic-bracket");
+        generateFinalsMatchBracket("dynamic-finals-bracket")
         generateTournamentBracket(16, "dynamic-losers-bracket");
     }
 </script>
@@ -14,6 +15,8 @@
 <h1> Example Bracket:</h1>
 
 <div class="tournament" id="dynamic-bracket"></div>
+
+<div class="final-match-tournament" id="dynamic-finals-bracket"></div>
 
 <div class="losers-tournament" id="dynamic-losers-bracket"></div>
 
