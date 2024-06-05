@@ -1,18 +1,44 @@
+/** Function that allows droppable elements by preventing the default action
+ * of rejecting drop
+ * 
+ * @param {any} event: Event object for the dragover event
+ */
 function allowDrop(event) {
     event.preventDefault();
 }
 
+/** Function that is called when the a given element with the draggable= true attribute
+ * gets dragged in the dragstart event
+ * 
+ * @param {any} event: The object for the dragstart event
+ */
 function drag(event) {
     event.dataTransfer.setData("text", event.target.id);
 }
 
+/** Function that will handle dropping a participant object into the player slots in the tournament
+ * bracket
+ * 
+ * @param {any} event: Drop event object that lets us get the participant and slot information
+ */
 function drop(event) {
+    //Prevent the default action
     event.preventDefault();
+    //Get the text data of what we are dropping (participant)
     var data = event.dataTransfer.getData("text");
+    //Get the participant element
+    var draggedElement = document.getElementById(data);
 
-    event.target.appendChild(document.getElementById(data));
+
+    // Check if the drop target is a player slot and if it empty (no child image element)
+    if (event.target.classList.contains('player-slot') && event.target.children.length === 0) {
+        //Drop the participant in the slot
+        event.target.appendChild(draggedElement);
+    } else {
+        //Alert the user the dropping is not possible!
+        alert("This slot is already occupied!");
+    }
 }
-
 
 /** Function that will find the smallest number that the parameter value is a multiple of
  * Excluding 2 from the possible values returned. 
@@ -49,11 +75,11 @@ function generateTournamentBracket(participants, elementID) {
 
     //Switch case to send the number of columns to the respective dynamic function based on the number of participants
     switch (findSmallestMultiple(participants)) {
+        case 3:
+            //Multiple of 3
+            break;
         case 4:
             multipleOfFour(Math.sqrt(participants), participants, bracketDiv);
-            break;
-        case 6:
-            //multiple of 6
             break;
         default:
             //Prime number?
@@ -93,17 +119,25 @@ function multipleOfFour(columns, participants, bracketDiv) {
 
 }
 
-/**
+/** Function generates the winner column of the bracket
  * 
- * @param {any} bracketdiv
+ * @param {any} bracketdiv: The bracket div to append the winner column to
  */
 function generateWinnerColumn(bracketdiv) {
     //Create the final column for the winner
     var winnerColumnDiv = document.createElement("div");
     winnerColumnDiv.className = "column last";
 
+
     var winnerDiv = document.createElement("div");
     winnerDiv.className = "winner";
+
+    //Append the crown image
+    var img = document.createElement("img");
+    img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
+    img.className = "crown"
+
+    winnerDiv.appendChild(img);
 
     //Generate the winner slot "match"
     generatePlayerSlot(winnerDiv, "winner-slot");
@@ -125,11 +159,13 @@ function generateWinnerColumn(bracketdiv) {
     bracketdiv.appendChild(winnerColumnDiv);
 }
 
-/**
+/** Function will generate a column of matches 
+ * based on the number of matches that will be in the column
  * 
- * @param {any} matches
- * @param {any} columnDiv
- * @param {any} isFinals
+ * @param {int} matches The number of matches in the column
+ * @param {Var} columnDiv The Div element of the column that will be generated
+ * @param {Boolean} isFinals Boolean value determining if the column generated is a finals match
+ *                              (Special case for the finals match when generating column)
  */
 function generateColumn(matches, columnDiv, isFinals) {
 
@@ -146,10 +182,10 @@ function generateColumn(matches, columnDiv, isFinals) {
 
 }
 
-/**
+/** Function will generate a complete match for the tournament bracket
  * 
- * @param {any} matchDiv
- * @param {any} isFinals
+ * @param {any} matchDiv The Div element to append the match values to
+ * @param {Boolean} isFinals Boolean value determining if the match is the finals match
  */
 function generateMatch(matchDiv, isFinals) {
     //Add the player slots 
@@ -189,10 +225,10 @@ function generateMatch(matchDiv, isFinals) {
 
 }
 
-/**
+/** Function that will generate the player slots for each match in the bracket
  * 
- * @param {any} matchDiv
- * @param {any} isTop
+ * @param {any} matchDiv The match Div that the slot will be appended to
+ * @param {any} slotName The name of the slot we are creating. Will be Top or Bottom Team
  */
 function generatePlayerSlot(matchDiv, slotName) {
     var participantDiv = document.createElement("div");
