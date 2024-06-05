@@ -40,7 +40,6 @@ function drop(event) {
     }
 }
 
-
 /** Function that will find the smallest number that the parameter value is a multiple of
  * Excluding 2 from the possible values returned. 
  * The minimum number of participants is 3, making 4 the smallest possible even multiple
@@ -133,6 +132,7 @@ function generateWinnerColumn(bracketdiv) {
     var winnerDiv = document.createElement("div");
     winnerDiv.className = "winner";
 
+    //Append the crown image
     var img = document.createElement("img");
     img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
     img.className = "crown"

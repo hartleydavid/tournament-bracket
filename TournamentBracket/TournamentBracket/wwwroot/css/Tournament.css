@@ -1,4 +1,11 @@
-﻿body {
+﻿
+.container {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 100%; /* Ensure it doesn't exceed the viewport width */
+}
+
+body {
     background-image: url("https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/background.png"); /* Path to your image */
     background-size: cover; /* Ensure the image covers the entire page */
     background-repeat: no-repeat; /* Prevent the image from repeating */
@@ -15,9 +22,17 @@ html {
 
 .Pokken-Logo{
     position: absolute;
-    top: 10px;
+    top: 60px;
     right: 10px;
+    height: 300px;
+    width: 650px;
+}
 
+.braxian {
+    position: absolute;
+    top: 60px;
+    right: 570px;
+    height: 350px;
 }
 
 .tournament-container{
@@ -128,7 +143,7 @@ html {
     position: absolute;
     top: 50%;
     bottom: 0;
-    margin-top: 35px;
+    margin-top: 32px;
     right: -1px;
     pointer-events: none; /* Prevent it from blocking interactivity */
 }
@@ -140,24 +155,30 @@ html {
 
         .match-lines .line.one {
             height: 1px;
-            width: 40px;
+            width: 45px;
+            left: -5px;
         }
 
         .match-lines .line.two {
-            height: 85px;
+            height: 95px;
             width: 1px;
             left: 40px;
         }
 
     .match-lines.alt {
-        left: -38px;
+        left: -33px;
+        width: 40px;
     }
 
+    .match-lines.alt .line.one{
+        width: 38px;
+    }
+
+
     .match-lines .line.extended {
-        position: absolute;
-        width: 40px;
+        width: 45px;
         height: 1px;
-        left: 655px;
+        left: 645px;
         top: 23px;
     }
 

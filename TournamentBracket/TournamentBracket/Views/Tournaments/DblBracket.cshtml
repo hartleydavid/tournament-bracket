@@ -1,7 +1,7 @@
 ﻿@model TournamentBracket.Models.Tournament
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Details";
 }
 
 <!DOCTYPE html>
@@ -13,12 +13,13 @@
     <meta name="viewport" content="width=device-width" />
     <title> @Html.DisplayFor(model => model.Name) </title>
     <link rel="stylesheet" href="https://use.typekit.net/mzt3xcp.css">
+    <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
+
 </head>
 
 <body>
-    <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
-    <script src="~/js/Scripts.js" asp-append-version="true"></script>
 
+    <!--Scripts that run on the page opening that will dynamically generate the brackets-->
     <script>
         var numberOfParticipants = @Model.NumberOfParticipants;
 
@@ -29,15 +30,11 @@
         }
     </script>
 
+    <!--Images in the view -->
     <img src="https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/logo.png" class="Pokken-Logo" />
+    <img src="https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/braixen.png" class="braxian" />
 
-
-    <h1>@Html.DisplayFor(model => model.Name)</h1>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
-
+    <!--Div for the multiple brackets for the double elimination-->
     <div class="tournament-container">
         <h1>Main</h1>
         <div class="tournament" id="dynamic-bracket"></div>
@@ -45,7 +42,7 @@
         <div class="tournament" id="dynamic-losers-bracket"></div>
     </div>
 
-
+    <!--The participants images in the bracket-->
     <div class="participant-menu">
 
         @foreach (var participant in Model.Participants)
@@ -54,9 +51,5 @@
         }
     
     </div>
-
 </body>
-
-
-
 </html>

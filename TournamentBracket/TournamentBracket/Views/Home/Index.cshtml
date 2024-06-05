@@ -4,13 +4,14 @@
 
 <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
 
-<script src="~/js/Scripts.js" asp-append-version="true"></script>
 <script>
     window.onload = function () {
         generateTournamentBracket(16, "dynamic-bracket");
         generateTournamentBracket(16, "dynamic-losers-bracket");
     }
 </script>
+
+<h1> Example Bracket:</h1>
 
 <div class="tournament" id="dynamic-bracket"></div>
 
