@@ -13,18 +13,15 @@ namespace TournamentBracket.Models
         //Tournament Name
         public required string Name { get; set; }
         
+        //The option of the bracket to display
         public BracketOptions BracketOptions {  get; set; } 
 
         //Navigation Property to represent the collection of participants in the tournament
         public ICollection<Participant> Participants { get; set; } = new List<Participant>();
 
+        //Int value of the number of participants in the tournament
         public int NumberOfParticipants {  get; set; }
-        //public ICollection<Match> Matches{ get; set; } = new List<Match>();
-        
-        //Description of Tournament
-        //public required string Description { get; set; }
-        //The date that the tournament will be
-        //public DateTime TournamentDate { get; set; }
+
 
     }
 }
