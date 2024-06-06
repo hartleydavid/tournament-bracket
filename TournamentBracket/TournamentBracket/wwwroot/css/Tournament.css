@@ -27,6 +27,7 @@ body {
     background-repeat: no-repeat; /* Prevent the image from repeating */
     background-attachment: fixed; /* Keep the background fixed while scrolling */
     background-position: center; /* Center the image */
+    background-color: #313338;
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
     height: 100%; /* Ensure the body takes the full height */
@@ -77,7 +78,7 @@ html {
     .tournament-container h1 {
         font-family: 'tekton-pro', sans-serif;
         font-size: 60px;
-    
+        color: white;
         padding: 20px;
         margin-left: 20px;
     }
