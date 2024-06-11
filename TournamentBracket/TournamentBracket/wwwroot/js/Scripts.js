@@ -89,6 +89,113 @@ function generateTournamentBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
+
+function generateLosersBracket(participants, elementID) {
+    //Get the tournament DIV
+    var tournamentDiv = document.getElementById(elementID);
+
+    //Create the bracket div
+    var bracketDiv = document.createElement("div");
+    bracketDiv.className = "bracket";
+
+    //Switch case to send the number of columns to the respective dynamic function based on the number of participants
+    switch (findSmallestMultiple(participants)) {
+        case 3:
+            //Multiple of 3
+            multipleOfThree(participants / 3, participants, bracketDiv);
+            break;
+        case 4:
+            multipleOfFour(Math.sqrt(participants), participants, bracketDiv);
+            break;
+        default:
+        //Prime number?
+    }
+
+    //Append the bracket to the html file
+    tournamentDiv.appendChild(bracketDiv);
+}
+
+function multipleOfThree(columns, participants, bracketDiv) {
+
+    /*
+    Matches per column:
+    15 man:
+     4 | 4 | 2 ("3") | 2 | 1 | Winner
+
+    */
+    //Calculate the matches per column. First column is sqrt of participants rounded up
+    //to next even number 
+    var matchesPerColumn = Math.sqrt(participants + 1);
+
+    //For the number of columns in the bracket
+    for (var i = 1; i <= columns; i++) {
+        //generate the column
+        var columnDiv = document.createElement("div");
+        columnDiv.className = `column ${i}`;
+
+        //CHANGE
+        generateLosersColumns(i, i == 3 ? matchesPerColumn + 1 : matchesPerColumn, columnDiv);
+
+        //If we are on an even column
+        if (i % 2 == 0) {
+            //Half the next set of matches per column
+            matchesPerColumn /= 2;
+        }
+        
+        //Append the column to the bracket
+        bracketDiv.appendChild(columnDiv);
+    }
+
+    //Generate the Final column in the bracket
+    generateWinnerColumn(bracketDiv);
+
+    //Rename line extended to line one
+    var lineRename = bracketDiv.querySelector(".column.last .line.extended");
+    lineRename.className = "line one";
+}
+
+function generateLosersColumns(columnNum, matches, columnDiv) {
+    //Variations of matches in columns
+    //Single Line Match (generateMatch with isFinals = true)
+    //Normal Match
+    //Single Slot-Single Line Match
+
+    for (var i = 0; i < matches; i++) {
+        var matchDiv = document.createElement("div");
+        matchDiv.className = "match";
+
+        //For the first and last columns
+        if (columnNum == 1 || columnNum == 5) {
+            //Single Line Matches
+            generateMatch(matchDiv, true);
+            //For the Second Column
+        } else if (columnNum == 2) {
+            //Upper 2 matches Single Line, lower 2 normal
+            //generateMatch(matchDiv, i <= matches / 2);
+            generateMatch(matchDiv, i == 0 || i == 1);
+            //For the Third Column
+        } else if (columnNum == 3) {
+            //If we are at the last match for the column
+            if (i == matches - 1) {
+                //Single Slot-Single Line (No bottom team)
+                generateMatch(matchDiv, true);
+                //matchDiv.querySelector(".match-bottom.team").remove();
+            } else {
+                //Otherwise generate normal slots
+                generateMatch(matchDiv, false);
+            }
+            //Normal column formatting (really only column 4)
+        } else {
+            //Normal Match
+            generateMatch(matchDiv, false);
+        }
+
+        //Append the match to the column
+        columnDiv.appendChild(matchDiv);
+    }
+
+}
+
 function generateFinalsMatchBracket(elementID) {
     var tournamentDiv = document.getElementById(elementID);
 
