@@ -1,0 +1,31 @@
+﻿
+/*Adjusts the location of the columns contents to line up with the top of the div*/
+.loser .column:nth-child(3) {
+    height: 0px;
+}
+
+.loser .column:nth-child(3) .match:nth-child(3) {
+    margin-top:157px;
+}
+
+/*Vertical line length fixes based on column*/
+.loser .column:nth-child(2) .match-lines .line.two {
+    height: 150px;
+}
+
+.loser .column:nth-child(3) .match-lines .line.two{
+    height: 150px;
+}
+
+.loser .column:nth-child(4) .match-lines .line.two {
+    height: 200px;
+}
+
+.loser .column:nth-child(4) .match-lines .line.two {
+    height: 200px;
+}
+
+.loser .column:last-child .match-lines.alt {
+    left:777px;
+    top:401px;
+}
