@@ -13,7 +13,9 @@ function allowDrop(event) {
  * @param {any} event: The object for the dragstart event
  */
 function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
+    //event.dataTransfer.setData("text", event.target.id);
+    event.dataTransfer.setData("text", event.target.closest('.participant').id);
+
 }
 
 /** Function that will handle dropping a participant object into the player slots in the tournament
@@ -28,7 +30,7 @@ function drop(event) {
     var data = event.dataTransfer.getData("text");
     //Get the participant element
     var draggedElement = document.getElementById(data);
-
+    //console.log(draggedElement);
 
     // Check if the drop target is a player slot and if it empty (no child image element)
     if (event.target.classList.contains('player-slot') && event.target.children.length === 0) {
@@ -37,6 +39,20 @@ function drop(event) {
     } else {
         //Alert the user the dropping is not possible!
         alert("This slot is already occupied!");
+    }
+}
+
+// Increment counter
+function incrementCounter(button) {
+    var counter = button.parentNode.querySelector('.counter');
+    counter.textContent = parseInt(counter.textContent) + 1;
+}
+
+// Decrement counter
+function decrementCounter(button) {
+    var counter = button.parentNode.querySelector('.counter');
+    if (parseInt(counter.textContent) > 0) {
+        counter.textContent = parseInt(counter.textContent) - 1;
     }
 }
 

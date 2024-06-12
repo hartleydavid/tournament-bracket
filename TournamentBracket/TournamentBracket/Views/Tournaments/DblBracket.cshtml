@@ -50,12 +50,24 @@
             
     </div>
 
+
+
     <!--The participants images in the bracket-->
     <div class="participant-menu">
 
         @foreach (var participant in Model.Participants)
         {    
-            <img id =@participant.Name src=@participant.ImageURL draggable="true" ondragstart="drag(event)" alt="Icon" />
+            
+                <div class="participant" id=@participant.Name draggable="true" ondragstart="drag(event)">
+                    <img src=@participant.ImageURL alt="Icon" />
+                    <div class="win-counter">
+                        <button onclick="incrementCounter(this)">+</button>
+                    <span class="counter">0</span>
+
+                        <button onclick="decrementCounter(this)">-</button>
+                    </div>
+                </div>
+            
         }
     
     </div>
