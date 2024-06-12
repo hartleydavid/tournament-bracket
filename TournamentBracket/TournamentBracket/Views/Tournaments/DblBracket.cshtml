@@ -14,6 +14,7 @@
     <title> @Html.DisplayFor(model => model.Name) </title>
     <link rel="stylesheet" href="https://use.typekit.net/mzt3xcp.css">
     <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/LosersBracket.css" asp-append-version="true" />
 
 </head>
 
@@ -26,7 +27,10 @@
         //Load the Tournament brackets
         window.onload = function () {
             generateTournamentBracket(numberOfParticipants, "dynamic-bracket");
-            generateTournamentBracket(numberOfParticipants, "dynamic-losers-bracket");
+            generateLosersBracket(numberOfParticipants-1, "dynamic-losers-bracket")
+
+            //generateFinalsMatchBracket("dynamic-finals-bracket")
+            //generateTournamentBracket(numberOfParticipants, "dynamic-losers-bracket");
         }
     </script>
 
@@ -38,8 +42,12 @@
     <div class="tournament-container">
         <h1>Main</h1>
         <div class="tournament" id="dynamic-bracket"></div>
-        <h1>Losers</h1>
-        <div class="tournament" id="dynamic-losers-bracket"></div>
+        <!--<h1>Winner's bout</h1>
+        <div class="final-match-tournament" id="dynamic-finals-bracket"></div>-->
+
+        <h1>Loser's</h1>
+        <div class="tournament loser" id="dynamic-losers-bracket"></div>
+            
     </div>
 
     <!--The participants images in the bracket-->

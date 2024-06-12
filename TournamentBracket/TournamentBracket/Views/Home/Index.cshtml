@@ -3,17 +3,24 @@
 }
 
 <link rel="stylesheet" href="~/css/Tournament.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/LosersBracket.css" asp-append-version="true" />
 
 <script>
     window.onload = function () {
         generateTournamentBracket(16, "dynamic-bracket");
-        generateTournamentBracket(16, "dynamic-losers-bracket");
+        generateLosersBracket(15, "dynamic-losers-bracket")
     }
 </script>
 
-<h1> Example Bracket:</h1>
+<div class="tournament-container">
 
-<div class="tournament" id="dynamic-bracket"></div>
 
-<div class="losers-tournament" id="dynamic-losers-bracket"></div>
+<h1> Example 16 Man Bracket:</h1>
+
+    <div class="tournament" id="dynamic-bracket"></div>
+    <div class="tournament loser" id="dynamic-losers-bracket"></div>
+    
+</div>
+
+
 
