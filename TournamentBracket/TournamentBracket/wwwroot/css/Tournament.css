@@ -131,6 +131,11 @@ html {
     margin: -150px 24px 24px 0;
 }
 
+    .winner h1{
+        position: absolute;
+        right: 0px;
+        bottom: 40px;
+    }
     /*Modify the slot of the winner*/
     .winner .winner-slot {
         height: 195px;
@@ -256,7 +261,7 @@ html {
             round
         */
         .match-lines .line.one {
-            height: 1px;
+            height: 3px;
             width: 45px;
             left: -5px;
         }
@@ -267,7 +272,7 @@ html {
         */
         .match-lines .line.two {
             height: 95px;
-            width: 1px;
+            width: 3px;
             left: 40px;
         }
     

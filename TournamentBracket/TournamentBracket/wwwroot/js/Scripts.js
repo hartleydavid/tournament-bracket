@@ -121,7 +121,11 @@ function generateTournamentBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
-
+/**
+ * 
+ * @param {any} participants
+ * @param {any} elementID
+ */
 function generateLosersBracket(participants, elementID) {
     //Get the tournament DIV
     var tournamentDiv = document.getElementById(elementID);
@@ -147,6 +151,12 @@ function generateLosersBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
+/**
+ * 
+ * @param {any} columns
+ * @param {any} participants
+ * @param {any} bracketDiv
+ */
 function multipleOfThree(columns, participants, bracketDiv) {
 
     /*
@@ -179,13 +189,19 @@ function multipleOfThree(columns, participants, bracketDiv) {
     }
 
     //Generate the Final column in the bracket
-    generateWinnerColumn(bracketDiv);
+    generateWinnerColumn(bracketDiv, "Loser's Finalist");
 
     //Rename line one
     var lineRename = bracketDiv.querySelector(".column.last .line.one");
     lineRename.className = "";
 }
 
+/**
+ * 
+ * @param {any} columnNum
+ * @param {any} matches
+ * @param {any} columnDiv
+ */
 function generateLosersColumns(columnNum, matches, columnDiv) {
     //Variations of matches in columns
     //Single Line Match (generateMatch with isFinals = true)
@@ -228,6 +244,10 @@ function generateLosersColumns(columnNum, matches, columnDiv) {
 
 }
 
+/**
+ * 
+ * @param {any} elementID
+ */
 function generateFinalsMatchBracket(elementID) {
     var tournamentDiv = document.getElementById(elementID);
 
@@ -239,23 +259,43 @@ function generateFinalsMatchBracket(elementID) {
     var champDiv = document.createElement("div");
     champDiv.className = `champion`;
 
+    //Append the crown image to the page
     var img = document.createElement("img");
     img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
     img.className = "crown"
-
     champDiv.appendChild(img);
+
+
 
     //Create the secrete chamion
     generatePlayerSlot(champDiv, "secret-champion");
+
+    //Create Title text for the winner and append to the page
+    var champText = document.createElement("h1");
+    champText.textContent = "Champion";
+    champText.id = "champ-text";
+    //Find the player slot and append the text to it
+    var secretSlot = champDiv.querySelector(".secret-champion");
+    secretSlot.appendChild(champText);
+
     //Add the ? to the slot
     var slotDiv = champDiv.querySelector(".secret-champion .player-slot");
     h1 = document.createElement("h1");
     h1.textContent = "?";
     slotDiv.appendChild(h1);
 
+
+
     //Create the champion-slot
     generatePlayerSlot(champDiv, "champion-slot");;
 
+    //Create Title text for the winner and append to the page
+    var champText = document.createElement("h1");
+    champText.textContent = "Winner";
+    champText.id = "winner-text";
+    //Find the player slot and append the text to it
+    var championSlot = champDiv.querySelector(".champion-slot");
+    championSlot.appendChild(champText);
 
 
     //Create match-lines alt
@@ -301,7 +341,7 @@ function multipleOfFour(columns, participants, bracketDiv) {
     }
 
     //Generate the Final column in the bracket
-    generateWinnerColumn(bracketDiv);
+    generateWinnerColumn(bracketDiv, "Finalist");
 
 }
 
@@ -309,7 +349,7 @@ function multipleOfFour(columns, participants, bracketDiv) {
  * 
  * @param {any} bracketdiv: The bracket div to append the winner column to
  */
-function generateWinnerColumn(bracketdiv) {
+function generateWinnerColumn(bracketdiv, text) {
     //Create the final column for the winner
     var winnerColumnDiv = document.createElement("div");
     winnerColumnDiv.className = "column last";
@@ -318,15 +358,14 @@ function generateWinnerColumn(bracketdiv) {
     var winnerDiv = document.createElement("div");
     winnerDiv.className = "winner";
 
-    //Append the crown image
-    /*var img = document.createElement("img");
-    img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
-    img.className = "crown"
-
-    winnerDiv.appendChild(img);*/
+    //Create Title text for the winner and append to the page
+    var h1 = document.createElement("h1");
+    h1.textContent = text;
+    winnerDiv.appendChild(h1);
 
     //Generate the winner slot "match"
     generatePlayerSlot(winnerDiv, "winner-slot");
+
 
     var matchLinesDiv = document.createElement("div");
     matchLinesDiv.className = "match-lines";

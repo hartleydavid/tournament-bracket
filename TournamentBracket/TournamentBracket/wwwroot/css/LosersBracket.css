@@ -31,8 +31,8 @@
 }
 
 .loser .column:last-child .match-lines .line.two {
-    height: 355px;
-    bottom: 440px;
+    height: 220px;
+    bottom: 580px;
 }
 
 .loser .winner .winner-slot {
@@ -43,83 +43,3 @@
     left: -1px;
     border: 5px solid #e2e2e2;
 }
-
-
-.champion{
-    position:absolute;
-    display:flex;
-    flex-direction:row;
-    bottom: 0px;
-    margin:  0px 0px 0px 400px;
-}
-    .champion .match-lines.alt {
-        margin: 0px 100px 100px 137px;
-    }
-
-    .final-match .match-lines.alt  .line.one{
-       width: 196px;
-    }
-
-.champion .crown{
-    position: absolute;
-    height: 150px;
-    width: 150px;
-    left: 290px;
-    bottom: 310px;
-}
-
-.secret-champion {
-    position: relative;
-    height: 195px;
-    width: 195px;
-    border: 3px dashed red;
-    background-color: #313338;
-    margin: 50px 100px 0px 0px;
-    right: 100px;
-    
-}
-    .secret-champion h1{
-        font-size: 150px;
-        margin: 0px 100px 100px 0px;
-    }
-
-.champion-slot {
-    position: relative;
-    height: 295px;
-    width: 295px;
-    border: 1px dashed black;
-    background-color: #ffd300;
-}
-
-.champion-slot .img{
-    position: relative;
-    height: 300px;
-    width: 300px;
-}
-
-    .champion-slot .win-counter {
-        left: 115px;
-        
-    }
-
-.champion .player-slot {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 295px;
-    width: 295px;
-}
-.champion .player-slot img{
-    position: absolute;
-    left: -110px;
-    height: 300px;
-    width: 300px;
-}
-
-.champion .secret-champion .player-slot img {
-    height: 200px;
-    width: 200px;
-    margin: 0px 0px 103px 103px;
-}
-
