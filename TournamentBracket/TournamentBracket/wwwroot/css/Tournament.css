@@ -130,19 +130,14 @@ html {
     height: 200px;
     margin: -150px 24px 24px 0;
 }
-    /*Modify the crown image*/
-    .winner .crown{
-        display: center;
-        height: 150px;
-        width: 150px;
-    }
 
     /*Modify the slot of the winner*/
     .winner .winner-slot {
         height: 195px;
         width: 195px;
         border: 1px dashed black;
-        background-color: lightgrey;
+        background-color: #ffd300;
+        margin-top: 140px;
     }
         /*
             Modify the player slot itself
@@ -170,6 +165,7 @@ html {
                 position: absolute;
                 height: 200px;
                 width: 200px;
+                border: 5px solid #ffd300;
             }
 
             /*
@@ -180,13 +176,7 @@ html {
                 position: absolute;
                 left: 120px;
             }
-.final-match-tournament{
-    margin-left: 600px;
-}
 
-    .final-match-tournament .match-lines .line.extended {
-        left:180px;
-    }
 /*
     Modifies the match div in the bracket
     Has it smaller than the player images
@@ -296,18 +286,6 @@ html {
         width: 38px;
     }
 
-    /*
-        The line extending from the
-        winner slot to the championship
-        match
-    */
-    .match-lines .line.extended {
-        width: 45px;
-        height: 1px;
-        left: 645px;
-        top: 23px;
-    }
-
 /**/
 .match:nth-child(even) .match-lines .line.two {
     transform: translate(0, -100%);
@@ -326,6 +304,7 @@ html {
     .column:last-child .match-lines.alt {
         display: block;   
     }
+
 /*
     For the second round extend the 
     vertical lines
@@ -358,6 +337,14 @@ html {
     height: 500px;
 }
 
+.column:last-child .match-lines {
+    left: 856px;
+    top: 739px;
+}
+
+.column:last-child .match-lines.alt .line.one{
+    left: -238px;
+}
 /*
     Ensures the list of participants
     stays at the bottom of the page

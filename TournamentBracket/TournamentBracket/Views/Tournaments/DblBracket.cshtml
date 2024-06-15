@@ -27,6 +27,8 @@
         //Load the Tournament brackets
         window.onload = function () {
             generateTournamentBracket(numberOfParticipants, "dynamic-bracket");
+            generateFinalsMatchBracket("final-match");
+
             generateLosersBracket(numberOfParticipants-1, "dynamic-losers-bracket")
 
             //generateFinalsMatchBracket("dynamic-finals-bracket")
@@ -44,6 +46,7 @@
         <div class="tournament" id="dynamic-bracket"></div>
         <!--<h1>Winner's bout</h1>
         <div class="final-match-tournament" id="dynamic-finals-bracket"></div>-->
+        <div class="final-match" id="final-match"></div>
 
         <h1>Loser's</h1>
         <div class="tournament loser" id="dynamic-losers-bracket"></div>
@@ -62,8 +65,7 @@
                     <img src=@participant.ImageURL alt="Icon" />
                     <div class="win-counter">
                         <button onclick="incrementCounter(this)">+</button>
-                    <span class="counter">0</span>
-
+                        <span class="counter">0</span>
                         <button onclick="decrementCounter(this)">-</button>
                     </div>
                 </div>
