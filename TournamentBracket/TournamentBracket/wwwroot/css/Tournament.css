@@ -130,19 +130,19 @@ html {
     height: 200px;
     margin: -150px 24px 24px 0;
 }
-    /*Modify the crown image*/
-    .winner .crown{
-        display: center;
-        height: 150px;
-        width: 150px;
-    }
 
+    .winner h1{
+        position: absolute;
+        right: 0px;
+        bottom: 40px;
+    }
     /*Modify the slot of the winner*/
     .winner .winner-slot {
         height: 195px;
         width: 195px;
         border: 1px dashed black;
-        background-color: lightgrey;
+        background-color: #ffd300;
+        margin-top: 140px;
     }
         /*
             Modify the player slot itself
@@ -170,6 +170,7 @@ html {
                 position: absolute;
                 height: 200px;
                 width: 200px;
+                border: 5px solid #ffd300;
             }
 
             /*
@@ -180,13 +181,7 @@ html {
                 position: absolute;
                 left: 120px;
             }
-.final-match-tournament{
-    margin-left: 600px;
-}
 
-    .final-match-tournament .match-lines .line.extended {
-        left:180px;
-    }
 /*
     Modifies the match div in the bracket
     Has it smaller than the player images
@@ -247,9 +242,10 @@ html {
     position: absolute;
     top: 50%;
     bottom: 0;
-    margin-top: 32px;
+    margin-top: 29px;
     right: -1px;
     pointer-events: none; /* Prevent it from blocking interactivity */
+    z-index:-1;
 }
     
     /*
@@ -266,7 +262,7 @@ html {
             round
         */
         .match-lines .line.one {
-            height: 1px;
+            height: 3px;
             width: 45px;
             left: -5px;
         }
@@ -277,7 +273,7 @@ html {
         */
         .match-lines .line.two {
             height: 95px;
-            width: 1px;
+            width: 3px;
             left: 40px;
         }
     
@@ -296,21 +292,10 @@ html {
         width: 38px;
     }
 
-    /*
-        The line extending from the
-        winner slot to the championship
-        match
-    */
-    .match-lines .line.extended {
-        width: 45px;
-        height: 1px;
-        left: 645px;
-        top: 23px;
-    }
-
-/**/
+/* Adjusts the bottom pair of matches branching horizontal line*/
 .match:nth-child(even) .match-lines .line.two {
     transform: translate(0, -100%);
+    top: 3px;
 }
 
 /*
@@ -326,6 +311,7 @@ html {
     .column:last-child .match-lines.alt {
         display: block;   
     }
+
 /*
     For the second round extend the 
     vertical lines
@@ -358,6 +344,14 @@ html {
     height: 500px;
 }
 
+.column:last-child .match-lines {
+    left: 856px;
+    top: 739px;
+}
+
+.column:last-child .match-lines.alt .line.one{
+    left: -238px;
+}
 /*
     Ensures the list of participants
     stays at the bottom of the page

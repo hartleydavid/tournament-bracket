@@ -26,6 +26,20 @@
 }
 
 .loser .column:last-child .match-lines.alt {
-    left:777px;
+    left:1010px;
     top:401px;
+}
+
+.loser .column:last-child .match-lines .line.two {
+    height: 220px;
+    bottom: 580px;
+}
+
+.loser .winner .winner-slot {
+    background-color: #e2e2e2;
+}
+
+.loser .winner .player-slot img {
+    left: -1px;
+    border: 5px solid #e2e2e2;
 }

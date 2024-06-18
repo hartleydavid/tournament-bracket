@@ -40,6 +40,22 @@ function drop(event) {
         //Alert the user the dropping is not possible!
         alert("This slot is already occupied!");
     }
+
+    //If the dropped image is in the champion slot
+    if (event.target.parentNode.classList.contains('champion-slot')) {
+        var secretSlot = document.querySelector(".secret-champion .player-slot");
+
+        if (secretSlot.children.length < 2) {
+            //Create the image
+            var img = document.createElement("img");
+            img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/NERD.jpg";
+            img.className = "NERD";
+
+
+            secretSlot.appendChild(img);
+        }
+        //console.log(temp);
+    }
 }
 
 // Increment counter
@@ -105,7 +121,11 @@ function generateTournamentBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
-
+/**
+ * 
+ * @param {any} participants
+ * @param {any} elementID
+ */
 function generateLosersBracket(participants, elementID) {
     //Get the tournament DIV
     var tournamentDiv = document.getElementById(elementID);
@@ -131,6 +151,12 @@ function generateLosersBracket(participants, elementID) {
     tournamentDiv.appendChild(bracketDiv);
 }
 
+/**
+ * 
+ * @param {any} columns
+ * @param {any} participants
+ * @param {any} bracketDiv
+ */
 function multipleOfThree(columns, participants, bracketDiv) {
 
     /*
@@ -163,13 +189,19 @@ function multipleOfThree(columns, participants, bracketDiv) {
     }
 
     //Generate the Final column in the bracket
-    generateWinnerColumn(bracketDiv);
+    generateWinnerColumn(bracketDiv, "Loser's Finalist");
 
-    //Rename line extended to line one
-    var lineRename = bracketDiv.querySelector(".column.last .line.extended");
-    lineRename.className = "line one";
+    //Rename line one
+    var lineRename = bracketDiv.querySelector(".column.last .line.one");
+    lineRename.className = "";
 }
 
+/**
+ * 
+ * @param {any} columnNum
+ * @param {any} matches
+ * @param {any} columnDiv
+ */
 function generateLosersColumns(columnNum, matches, columnDiv) {
     //Variations of matches in columns
     //Single Line Match (generateMatch with isFinals = true)
@@ -180,7 +212,7 @@ function generateLosersColumns(columnNum, matches, columnDiv) {
         var matchDiv = document.createElement("div");
         matchDiv.className = "match";
 
-        //For the first and last columns
+        //For the first 
         if (columnNum == 1 || columnNum == 5) {
             //Single Line Matches
             generateMatch(matchDiv, true);
@@ -201,10 +233,10 @@ function generateLosersColumns(columnNum, matches, columnDiv) {
                 generateMatch(matchDiv, false);
             }
             //Normal column formatting (really only column 4)
-        } else {
+        } else{
             //Normal Match
             generateMatch(matchDiv, false);
-        }
+        } 
 
         //Append the match to the column
         columnDiv.appendChild(matchDiv);
@@ -212,6 +244,10 @@ function generateLosersColumns(columnNum, matches, columnDiv) {
 
 }
 
+/**
+ * 
+ * @param {any} elementID
+ */
 function generateFinalsMatchBracket(elementID) {
     var tournamentDiv = document.getElementById(elementID);
 
@@ -219,19 +255,62 @@ function generateFinalsMatchBracket(elementID) {
     var bracketDiv = document.createElement("div");
     bracketDiv.className = "bracket";
 
-    //Create a 1v1 tournament Bracket
-
     //generate the column
-    var columnDiv = document.createElement("div");
-    columnDiv.className = `column 1`;
-    generateColumn(1, columnDiv, true);
+    var champDiv = document.createElement("div");
+    champDiv.className = `champion`;
+
+    //Append the crown image to the page
+    var img = document.createElement("img");
+    img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
+    img.className = "crown"
+    champDiv.appendChild(img);
+
+
+
+    //Create the secrete chamion
+    generatePlayerSlot(champDiv, "secret-champion");
+
+    //Create Title text for the winner and append to the page
+    var champText = document.createElement("h1");
+    champText.textContent = "Champion";
+    champText.id = "champ-text";
+    //Find the player slot and append the text to it
+    var secretSlot = champDiv.querySelector(".secret-champion");
+    secretSlot.appendChild(champText);
+
+    //Add the ? to the slot
+    var slotDiv = champDiv.querySelector(".secret-champion .player-slot");
+    h1 = document.createElement("h1");
+    h1.textContent = "?";
+    slotDiv.appendChild(h1);
+
+
+
+    //Create the champion-slot
+    generatePlayerSlot(champDiv, "champion-slot");;
+
+    //Create Title text for the winner and append to the page
+    var champText = document.createElement("h1");
+    champText.textContent = "Winner";
+    champText.id = "winner-text";
+    //Find the player slot and append the text to it
+    var championSlot = champDiv.querySelector(".champion-slot");
+    championSlot.appendChild(champText);
+
+
+    //Create match-lines alt
+    var matchLinesAltDiv = document.createElement("div");
+    matchLinesAltDiv.className = "match-lines alt";
+    //The Line Div iteslf
+    var lineOneAltDiv = document.createElement("div");
+    lineOneAltDiv.className = "line one";
+    matchLinesAltDiv.appendChild(lineOneAltDiv);
+    //Append match-lines alt
+    champDiv.appendChild(matchLinesAltDiv);
 
     //Append the column to the bracket
-    bracketDiv.appendChild(columnDiv);
+    bracketDiv.appendChild(champDiv);
     
-    //Generate the Final column in the bracket
-    generateWinnerColumn(bracketDiv);
-
     //Append the bracket to the html file
     tournamentDiv.appendChild(bracketDiv);
 }
@@ -262,7 +341,7 @@ function multipleOfFour(columns, participants, bracketDiv) {
     }
 
     //Generate the Final column in the bracket
-    generateWinnerColumn(bracketDiv);
+    generateWinnerColumn(bracketDiv, "Finalist");
 
 }
 
@@ -270,7 +349,7 @@ function multipleOfFour(columns, participants, bracketDiv) {
  * 
  * @param {any} bracketdiv: The bracket div to append the winner column to
  */
-function generateWinnerColumn(bracketdiv) {
+function generateWinnerColumn(bracketdiv, text) {
     //Create the final column for the winner
     var winnerColumnDiv = document.createElement("div");
     winnerColumnDiv.className = "column last";
@@ -279,15 +358,28 @@ function generateWinnerColumn(bracketdiv) {
     var winnerDiv = document.createElement("div");
     winnerDiv.className = "winner";
 
-    //Append the crown image
-    var img = document.createElement("img");
-    img.src = "https://tournamentbracketimages.blob.core.windows.net/pokken-theme-assets/crown.png"
-    img.className = "crown"
-
-    winnerDiv.appendChild(img);
+    //Create Title text for the winner and append to the page
+    var h1 = document.createElement("h1");
+    h1.textContent = text;
+    winnerDiv.appendChild(h1);
 
     //Generate the winner slot "match"
     generatePlayerSlot(winnerDiv, "winner-slot");
+
+
+    var matchLinesDiv = document.createElement("div");
+    matchLinesDiv.className = "match-lines";
+
+    //Create the First line div and append to the parent div
+    var lineOneDiv = document.createElement("div");
+    lineOneDiv.className = "line one";
+    matchLinesDiv.appendChild(lineOneDiv);
+
+
+    //Create the "line two" line in the html file
+    var lineTwoDiv = document.createElement("div");
+    lineTwoDiv.className = "line two";
+    matchLinesDiv.appendChild(lineTwoDiv);
 
     //Create line div's for CSS
     var matchLinesAltDiv = document.createElement("div");
@@ -295,12 +387,13 @@ function generateWinnerColumn(bracketdiv) {
 
     var lineExtensionDiv = document.createElement("div");
     //lineExtensionDiv.className = "line extended";
-    lineExtensionDiv.className = "line extended";
+    lineExtensionDiv.className = "line one";
 
     //Append Elements 
     matchLinesAltDiv.appendChild(lineExtensionDiv);
 
     winnerColumnDiv.appendChild(winnerDiv);
+    winnerColumnDiv.appendChild(matchLinesDiv);
     winnerColumnDiv.appendChild(matchLinesAltDiv);
 
     //append to the bracket
