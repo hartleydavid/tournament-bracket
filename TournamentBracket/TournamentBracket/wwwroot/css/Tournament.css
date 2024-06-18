@@ -242,9 +242,10 @@ html {
     position: absolute;
     top: 50%;
     bottom: 0;
-    margin-top: 32px;
+    margin-top: 29px;
     right: -1px;
     pointer-events: none; /* Prevent it from blocking interactivity */
+    z-index:-1;
 }
     
     /*
@@ -291,9 +292,10 @@ html {
         width: 38px;
     }
 
-/**/
+/* Adjusts the bottom pair of matches branching horizontal line*/
 .match:nth-child(even) .match-lines .line.two {
     transform: translate(0, -100%);
+    top: 3px;
 }
 
 /*
